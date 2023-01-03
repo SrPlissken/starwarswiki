@@ -14,32 +14,34 @@ struct ContentView: View {
     
     var body: some View {
         
-        ZStack {
-            // Background color
-            Color.black
-                .ignoresSafeArea()
-            
-            // Main layout
-            VStack {
-                Image("StarWarsMain")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxWidth: .infinity, maxHeight: 150)
-                    .padding(30)
+        NavigationView {
+            ZStack {
+                // Background color
+                Color.black
+                    .ignoresSafeArea()
                 
-                Spacer()
-                
-                // Grid layout
-                LazyVGrid(columns: [GridItem(), GridItem()]) {
-                    ForEach(categoryImages, id: \.self) { item in
-                        let index = categoryImages.firstIndex(of: item) ?? 0
-                        CategoryButton(categoryImage: categoryImages[index], categoryTitle: categoryTitle[index])
-                    }
+                // Main layout
+                VStack {
+                    Image("StarWarsMain")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .padding(30)
                     
+                    Spacer()
+                    
+                    // Grid layout
+                    LazyVGrid(columns: [GridItem(), GridItem()]) {
+                        ForEach(categoryImages, id: \.self) { item in
+                            let index = categoryImages.firstIndex(of: item) ?? 0
+                            CategoryButton(destination: RouterHelper.GetViewForSelection(index: index), categoryImage: categoryImages[index], categoryTitle: categoryTitle[index])
+                        }
+                        
+                    }
+                    .padding(30)
+                    
+                    Spacer()
                 }
-                .padding(30)
-                
-                Spacer()
             }
         }
     }
@@ -55,13 +57,12 @@ struct ContentView_Previews: PreviewProvider {
 struct CategoryButton: View {
     
     // Image and title
+    let destination: AnyView
     let categoryImage: String
     let categoryTitle: String
     
     var body: some View {
-        Button {
-            
-        } label: {
+        NavigationLink(destination: destination) {
             VStack(spacing: 15) {
                 Image(systemName: categoryImage)
                     .resizable()
@@ -72,10 +73,10 @@ struct CategoryButton: View {
                     .fontWeight(.bold)
             }
             .frame(maxWidth: .infinity, maxHeight: 130)
+            .padding(5)
+            .foregroundColor(.orange)
+            .background(Color.brown)
+            .cornerRadius(20)
         }
-        .padding(5)
-        .foregroundColor(.orange)
-        .background(Color.brown)
-        .cornerRadius(20)
     }
 }

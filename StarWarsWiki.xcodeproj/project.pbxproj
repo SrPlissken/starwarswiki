@@ -11,6 +11,8 @@
 		573F4A9C2962FE70005CE558 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4A9B2962FE70005CE558 /* ContentView.swift */; };
 		573F4A9E2962FE70005CE558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573F4A9D2962FE70005CE558 /* Assets.xcassets */; };
 		573F4AA12962FE70005CE558 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573F4AA02962FE70005CE558 /* Preview Assets.xcassets */; };
+		573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAB2963A276005CE558 /* CharacterListView.swift */; };
+		573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAE296455C3005CE558 /* RouterHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		573F4A9B2962FE70005CE558 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		573F4A9D2962FE70005CE558 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		573F4AA02962FE70005CE558 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		573F4AAB2963A276005CE558 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
+		573F4AAE296455C3005CE558 /* RouterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		573F4A982962FE70005CE558 /* StarWarsWiki */ = {
 			isa = PBXGroup;
 			children = (
+				573F4AAD29645512005CE558 /* Helpers */,
+				573F4AA72963A1D8005CE558 /* CharacterList */,
 				573F4A992962FE70005CE558 /* StarWarsWikiApp.swift */,
 				573F4A9B2962FE70005CE558 /* ContentView.swift */,
 				573F4A9D2962FE70005CE558 /* Assets.xcassets */,
@@ -65,6 +71,46 @@
 				573F4AA02962FE70005CE558 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		573F4AA72963A1D8005CE558 /* CharacterList */ = {
+			isa = PBXGroup;
+			children = (
+				573F4AAA2963A1F1005CE558 /* ViewModel */,
+				573F4AA92963A1EB005CE558 /* View */,
+				573F4AA82963A1E3005CE558 /* Model */,
+			);
+			path = CharacterList;
+			sourceTree = "<group>";
+		};
+		573F4AA82963A1E3005CE558 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		573F4AA92963A1EB005CE558 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				573F4AAB2963A276005CE558 /* CharacterListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		573F4AAA2963A1F1005CE558 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		573F4AAD29645512005CE558 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				573F4AAE296455C3005CE558 /* RouterHelper.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
 				573F4A9C2962FE70005CE558 /* ContentView.swift in Sources */,
+				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
 				573F4A9A2962FE70005CE558 /* StarWarsWikiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
