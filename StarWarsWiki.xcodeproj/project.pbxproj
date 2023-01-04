@@ -13,6 +13,11 @@
 		573F4AA12962FE70005CE558 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573F4AA02962FE70005CE558 /* Preview Assets.xcassets */; };
 		573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAB2963A276005CE558 /* CharacterListView.swift */; };
 		573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAE296455C3005CE558 /* RouterHelper.swift */; };
+		57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864EF2965A6A60049484B /* CharacterDataSource.swift */; };
+		57F864F42965AAF80049484B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F32965AAF70049484B /* Character.swift */; };
+		57F864F62965AB340049484B /* CharacterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F52965AB340049484B /* CharacterList.swift */; };
+		57F864F82965AC360049484B /* CharacterListNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F72965AC360049484B /* CharacterListNS.swift */; };
+		57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F92965B1220049484B /* CharacterListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +28,11 @@
 		573F4AA02962FE70005CE558 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		573F4AAB2963A276005CE558 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		573F4AAE296455C3005CE558 /* RouterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterHelper.swift; sourceTree = "<group>"; };
+		57F864EF2965A6A60049484B /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
+		57F864F32965AAF70049484B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		57F864F52965AB340049484B /* CharacterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterList.swift; sourceTree = "<group>"; };
+		57F864F72965AC360049484B /* CharacterListNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListNS.swift; sourceTree = "<group>"; };
+		57F864F92965B1220049484B /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,7 @@
 			children = (
 				573F4AAD29645512005CE558 /* Helpers */,
 				573F4AA72963A1D8005CE558 /* CharacterList */,
+				57F864F12965AAD70049484B /* Character */,
 				573F4A992962FE70005CE558 /* StarWarsWikiApp.swift */,
 				573F4A9B2962FE70005CE558 /* ContentView.swift */,
 				573F4A9D2962FE70005CE558 /* Assets.xcassets */,
@@ -76,6 +87,7 @@
 		573F4AA72963A1D8005CE558 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
+				57F864EE2965A68A0049484B /* Data */,
 				573F4AAA2963A1F1005CE558 /* ViewModel */,
 				573F4AA92963A1EB005CE558 /* View */,
 				573F4AA82963A1E3005CE558 /* Model */,
@@ -86,6 +98,7 @@
 		573F4AA82963A1E3005CE558 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				57F864F52965AB340049484B /* CharacterList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -101,6 +114,7 @@
 		573F4AAA2963A1F1005CE558 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				57F864F92965B1220049484B /* CharacterListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -111,6 +125,31 @@
 				573F4AAE296455C3005CE558 /* RouterHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		57F864EE2965A68A0049484B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57F864EF2965A6A60049484B /* CharacterDataSource.swift */,
+				57F864F72965AC360049484B /* CharacterListNS.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57F864F12965AAD70049484B /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				57F864F22965AAEB0049484B /* Model */,
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		57F864F22965AAEB0049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F864F32965AAF70049484B /* Character.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,8 +222,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */,
+				57F864F62965AB340049484B /* CharacterList.swift in Sources */,
+				57F864F82965AC360049484B /* CharacterListNS.swift in Sources */,
 				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
+				57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */,
 				573F4A9C2962FE70005CE558 /* ContentView.swift in Sources */,
+				57F864F42965AAF80049484B /* Character.swift in Sources */,
 				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
 				573F4A9A2962FE70005CE558 /* StarWarsWikiApp.swift in Sources */,
 			);
