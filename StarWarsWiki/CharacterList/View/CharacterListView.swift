@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct CharacterListView: View {
+    @State var searchText = ""
+    
+    var searchResults: [String] {
+        items.filter { searchText.isEmpty || $0.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    let items = ["Item1", "Item2", "Item3", "Item4"]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if(searchResults.count > 0) {
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    ForEach(searchResults, id: \.self) { item in
+                        Text(item)
+                    }
+                }
+            }
+            else {
+                Text("No results for search")
+            }
+        }
+        .navigationTitle("Characters")
+        .searchable(text: $searchText)
     }
 }
 
