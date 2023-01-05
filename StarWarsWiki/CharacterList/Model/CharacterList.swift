@@ -8,7 +8,8 @@
 import Foundation
 
 struct CharacterList: Codable {
-    let next: String
-    let previous: String
-    let rersults: [Character]
+    let count: Int
+    let next: String?
+    let previous: String?
+    let results: [Character]
 }

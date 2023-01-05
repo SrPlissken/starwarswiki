@@ -17,15 +17,14 @@ class CharacterListNS: CharacterDataSource {
         // Control invalid url
         let sessionUrl = "\(domain)?page=\(page)"
         guard let url = URL(string: sessionUrl) else {
-            return Just<CharacterList>(CharacterList(next: "", previous: "", rersults: [])).eraseToAnyPublisher()
+            return Just<CharacterList>(CharacterList(count: 0, next: "", previous: "", results: [])).eraseToAnyPublisher()
         }
         // Go for API call
         let urlSession: URLSession = .shared
         return urlSession.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: CharacterList.self, decoder: JSONDecoder())
-            .replaceError(with: CharacterList(next: "", previous: "", rersults: []))
+            .replaceError(with: CharacterList(count: 0, next: "", previous: "", results: []))
             .eraseToAnyPublisher()
-        
     }
 }

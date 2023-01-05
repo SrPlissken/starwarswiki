@@ -9,20 +9,19 @@ import SwiftUI
 
 struct CharacterListView: View {
     
-    @ObservedObject var viewModel: CharacterListViewModel = .init()
+    @ObservedObject var viewModel: CharacterListViewModel = .init(networkService: CharacterListNS())
     @State var searchText = ""
     
-    var searchResults: [String] {
-        items.filter { searchText.isEmpty || $0.lowercased().contains(searchText.lowercased()) }
+    var searchResults: [Character] {
+        viewModel.characterData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
     }
     
-    let items = ["Item1", "Item2", "Item3", "Item4"]
     var body: some View {
         VStack {
             if(searchResults.count > 0) {
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     ForEach(searchResults, id: \.self) { item in
-                        Text(item)
+                        Text(item.name)
                     }
                 }
             }
@@ -32,6 +31,9 @@ struct CharacterListView: View {
         }
         .navigationTitle("Characters")
         .searchable(text: $searchText)
+        .onAppear() {
+            viewModel.loadCharacterListData()
+        }
     }
 }
 
