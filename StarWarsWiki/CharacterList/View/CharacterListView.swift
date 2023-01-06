@@ -13,30 +13,45 @@ struct CharacterListView: View {
     @State var searchText = ""
     
     var searchResults: [Character] {
-        viewModel.characterData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
+        viewModel.loadedViewModel.characterData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
     }
     
     var body: some View {
-        
+        let state = viewModel.state
         ZStack {
             // Background color
             Color.black
                 .ignoresSafeArea()
             
-            VStack {
-                if(searchResults.count > 0) {
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem(), GridItem()]) {
-                            ForEach(searchResults, id: \.self) { item in
-                                CharacterItem(destination: RouterHelper.GetViewForDetailSection(category: "Character"), itemName: item.name, itemImage: "person.2")
+            // View state load
+            switch state {
+            case .idle:
+                Color.clear.onAppear(perform: viewModel.loadCharacterListData)
+            case .loading:
+                VStack(spacing: 10) {
+                    ProgressView()
+                    Text("Loading Data")
+                }
+            case .success:
+                VStack {
+                    if(searchResults.count > 0) {
+                        ScrollView {
+                            LazyVGrid(columns: [GridItem(), GridItem()]) {
+                                ForEach(searchResults, id: \.self) { item in
+                                    CharacterItem(destination: RouterHelper.GetViewForDetailSection(category: "Character"), itemName: item.name, itemImage: "person.2")
+                                }
                             }
+                            .padding(30)
                         }
-                        .padding(30)
+                    }
+                    else {
+                        Text("No results for search")
+                            .foregroundColor(.white)
                     }
                 }
-                else {
-                    Text("No results for search")
-                        .foregroundColor(.white)
+            case .failed(let errorViewModel):
+                Color.clear.alert(isPresented: $viewModel.showErrorAlert) {
+                    Alert(title: Text("Error"), message: Text(errorViewModel.message), dismissButton: .default(Text("OK")))
                 }
             }
         }
@@ -44,11 +59,7 @@ struct CharacterListView: View {
         .background(.black)
         .foregroundColor(.white)
         .preferredColorScheme(.dark)
-        .searchable(text: $searchText)
-        .onAppear() {
-            viewModel.loadCharacterListData()
-        }
-    }
+        .searchable(text: $searchText)    }
 }
 
 struct CharacterListView_Previews: PreviewProvider {
