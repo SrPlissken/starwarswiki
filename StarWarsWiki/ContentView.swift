@@ -13,7 +13,6 @@ struct ContentView: View {
     let categoryTitle = ["Characters", "Ships", "Planets"]
     
     var body: some View {
-        
         NavigationView {
             ZStack {
                 // Background color

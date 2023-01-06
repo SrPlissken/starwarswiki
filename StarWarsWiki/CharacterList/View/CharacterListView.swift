@@ -17,19 +17,33 @@ struct CharacterListView: View {
     }
     
     var body: some View {
-        VStack {
-            if(searchResults.count > 0) {
-                LazyVGrid(columns: [GridItem(), GridItem()]) {
-                    ForEach(searchResults, id: \.self) { item in
-                        Text(item.name)
+        
+        ZStack {
+            // Background color
+            Color.black
+                .ignoresSafeArea()
+            
+            VStack {
+                if(searchResults.count > 0) {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(), GridItem()]) {
+                            ForEach(searchResults, id: \.self) { item in
+                                CharacterItem(destination: RouterHelper.GetViewForDetailSection(category: "Character"), itemName: item.name, itemImage: "person.2")
+                            }
+                        }
+                        .padding(30)
                     }
                 }
-            }
-            else {
-                Text("No results for search")
+                else {
+                    Text("No results for search")
+                        .foregroundColor(.white)
+                }
             }
         }
-        .navigationTitle("Characters")
+        .navigationBarTitle(Text("Character"), displayMode: .inline)
+        .background(.black)
+        .foregroundColor(.white)
+        .preferredColorScheme(.dark)
         .searchable(text: $searchText)
         .onAppear() {
             viewModel.loadCharacterListData()
@@ -40,5 +54,31 @@ struct CharacterListView: View {
 struct CharacterListView_Previews: PreviewProvider {
     static var previews: some View {
         CharacterListView()
+    }
+}
+
+struct CharacterItem: View {
+    
+    let destination: AnyView
+    let itemName: String
+    let itemImage: String
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            VStack(spacing: 15) {
+                Image(systemName: itemImage)
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Text(itemName)
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            .frame(maxWidth: .infinity, maxHeight: 130)
+            .padding(5)
+            .foregroundColor(.orange)
+            .background(Color.brown)
+            .cornerRadius(20)
+        }
     }
 }
