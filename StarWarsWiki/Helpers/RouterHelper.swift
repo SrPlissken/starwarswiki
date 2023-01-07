@@ -22,10 +22,10 @@ final class RouterHelper {
     }
     
     // Helper to navigate to desired detail item section
-    public static func GetViewForDetailSection(category: String) -> AnyView {
+    public static func GetViewForDetailSection(category: String, character: Character) -> AnyView {
         switch category {
         case "Character":
-            return AnyView(EmptyView())
+            return AnyView(CharacterDetailView(viewModel: CharacterDetailViewModel(selectedCharacter: character)))
         default:
             return AnyView(EmptyView())
         }

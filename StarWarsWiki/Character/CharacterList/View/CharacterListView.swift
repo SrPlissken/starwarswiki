@@ -38,7 +38,7 @@ struct CharacterListView: View {
                         ScrollView {
                             LazyVGrid(columns: [GridItem(), GridItem()]) {
                                 ForEach(searchResults, id: \.self) { item in
-                                    CharacterItem(destination: RouterHelper.GetViewForDetailSection(category: "Character"), itemName: item.name, itemImage: "person.2")
+                                    ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Character", character: item), itemName: item.name, itemImage: "person.2")
                                 }
                             }
                             .padding(30)
@@ -68,7 +68,7 @@ struct CharacterListView_Previews: PreviewProvider {
     }
 }
 
-struct CharacterItem: View {
+struct ClickableItem: View {
     
     let destination: AnyView
     let itemName: String
