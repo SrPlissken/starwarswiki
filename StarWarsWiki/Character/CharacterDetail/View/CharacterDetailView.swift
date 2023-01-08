@@ -54,11 +54,11 @@ struct CharacterDetailView: View {
                         
                         // Other character data
                         VStack(spacing: 40) {
-                            DetailNavigableCategoryItems(categoryName: "Homeworld")
-                            DetailNavigableCategoryItems(categoryName: "Films")
-                            DetailNavigableCategoryItems(categoryName: "Species")
-                            DetailNavigableCategoryItems(categoryName: "Starships")
-                            DetailNavigableCategoryItems(categoryName: "Vehicles")
+                            DetailNavigableCategoryItems(categoryName: "Homeworld", itemName: viewModel.loadedViewModel.homeWorld.name)
+                            DetailNavigableCategoryItems(categoryName: "Films", itemName: "Film1")
+                            DetailNavigableCategoryItems(categoryName: "Species", itemName: "Specie1")
+                            DetailNavigableCategoryItems(categoryName: "Starships", itemName: "Starship1")
+                            DetailNavigableCategoryItems(categoryName: "Vehicles", itemName: "Vehicle1")
                         }
                         
                         
@@ -111,6 +111,8 @@ struct CharacterProperty: View {
 struct DetailNavigableCategoryItems: View {
     
     let categoryName: String
+    let itemName: String
+    let categoryImages = ["globe"]
     
     var body: some View {
         VStack(spacing: 20) {
@@ -121,9 +123,7 @@ struct DetailNavigableCategoryItems: View {
             }
             ScrollView(.horizontal) {
                 HStack(spacing: 20) {
-                    ClickableItem(destination: AnyView(EmptyView()), itemName: "Planet1", itemImage: "globe")
-                        .frame(width: 200)
-                    ClickableItem(destination: AnyView(EmptyView()), itemName: "Planet1", itemImage: "globe")
+                    ClickableItem(destination: AnyView(EmptyView()), itemName: itemName, itemImage: categoryImages[0])
                         .frame(width: 200)
                 }
             }

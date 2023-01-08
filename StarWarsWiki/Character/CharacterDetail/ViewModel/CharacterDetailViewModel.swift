@@ -18,6 +18,7 @@ class CharacterDetailViewModel: ObservableObject {
         }
         let id: String
         let characterData: Character
+        var homeWorld: Planet
     }
     
     private var dataPublisher: AnyCancellable?
@@ -27,7 +28,7 @@ class CharacterDetailViewModel: ObservableObject {
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
-    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject)
+    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject)
     
     init(characterUrl: String, networkService: CharacterNS) {
         self.characterUrl = characterUrl
@@ -49,8 +50,26 @@ class CharacterDetailViewModel: ObservableObject {
             }
         } receiveValue: { [weak self] profile in
             let characterData = profile
-            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData)
+            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject)
+            self?.loadPlanets(homeworld: characterData.homeworld)
             self?.state = .success
+        }
+    }
+    
+    // Load homeworld data
+    func loadPlanets(homeworld: String) {
+        let planetNS: PlanetNS = .init()
+        
+        dataPublisher = planetNS.getPlanetData(for: homeworld).receive(on: DispatchQueue.main).sink { [weak self] completion in
+            if case .failure(let error) = completion {
+                self?.showErrorAlert = true
+                self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+            }
+        } receiveValue: { [weak self] planet in
+            let planetData = planet
+            if self?.loadedViewModel != nil {
+                self?.loadedViewModel.homeWorld = planetData
+            }
         }
     }
     
