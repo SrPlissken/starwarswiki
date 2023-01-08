@@ -20,7 +20,7 @@ class CharacterListViewModel: ObservableObject {
     }
     
     private var dataPublisher: AnyCancellable?
-    private let networkService: CharacterListNS
+    private let networkService: CharacterNS
     
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
@@ -28,7 +28,7 @@ class CharacterListViewModel: ObservableObject {
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: .init(count: 0, next: "", previous: "", results: []))
     
     // Constructor
-    init(networkService: CharacterListNS) {
+    init(networkService: CharacterNS) {
         self.networkService = networkService
     }
     
@@ -40,7 +40,7 @@ class CharacterListViewModel: ObservableObject {
         
         state = .loading
         
-        dataPublisher = networkService.getCharacterData(for: 1).receive(on: DispatchQueue.main).sink { [weak self] completion in
+        dataPublisher = networkService.getCharacterListData(for: 1).receive(on: DispatchQueue.main).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 self?.showErrorAlert = true
                 self?.state = .failed(ErrorHelper(message: error.localizedDescription))

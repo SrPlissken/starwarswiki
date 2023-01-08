@@ -25,7 +25,7 @@ final class RouterHelper {
     public static func GetViewForDetailSection(category: String, character: Character) -> AnyView {
         switch category {
         case "Character":
-            return AnyView(CharacterDetailView(viewModel: CharacterDetailViewModel(selectedCharacter: character)))
+            return AnyView(CharacterDetailView(viewModel: CharacterDetailViewModel(characterUrl: character.url, networkService: CharacterNS())))
         default:
             return AnyView(EmptyView())
         }
