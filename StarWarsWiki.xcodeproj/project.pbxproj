@@ -26,6 +26,10 @@
 		57F8650B296AE28B0049484B /* PlanetNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8650A296AE28B0049484B /* PlanetNS.swift */; };
 		57F8650F296AE31E0049484B /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8650E296AE31E0049484B /* Planet.swift */; };
 		57F86513296AE5870049484B /* PlanetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86512296AE5870049484B /* PlanetList.swift */; };
+		57F8651B296C89500049484B /* FilmList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8651A296C89500049484B /* FilmList.swift */; };
+		57F8651D296C899F0049484B /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8651C296C899F0049484B /* Film.swift */; };
+		57F8651F296C8BFD0049484B /* FilmDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8651E296C8BFD0049484B /* FilmDataSource.swift */; };
+		57F86521296C8C3F0049484B /* FilmNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86520296C8C3F0049484B /* FilmNS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		57F8650A296AE28B0049484B /* PlanetNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetNS.swift; sourceTree = "<group>"; };
 		57F8650E296AE31E0049484B /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		57F86512296AE5870049484B /* PlanetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetList.swift; sourceTree = "<group>"; };
+		57F8651A296C89500049484B /* FilmList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmList.swift; sourceTree = "<group>"; };
+		57F8651C296C899F0049484B /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		57F8651E296C8BFD0049484B /* FilmDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDataSource.swift; sourceTree = "<group>"; };
+		57F86520296C8C3F0049484B /* FilmNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmNS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				573F4AAD29645512005CE558 /* Helpers */,
+				57F86514296C88BC0049484B /* Film */,
 				57F86506296AE11E0049484B /* Planet */,
 				57F864F12965AAD70049484B /* Character */,
 				573F4A992962FE70005CE558 /* StarWarsWikiApp.swift */,
@@ -200,9 +209,9 @@
 		57F86506296AE11E0049484B /* Planet */ = {
 			isa = PBXGroup;
 			children = (
+				57F86507296AE1400049484B /* Data */,
 				57F86510296AE56F0049484B /* PlanetList */,
 				57F8650C296AE2FE0049484B /* PlanetDetail */,
-				57F86507296AE1400049484B /* Data */,
 			);
 			path = Planet;
 			sourceTree = "<group>";
@@ -244,6 +253,57 @@
 			isa = PBXGroup;
 			children = (
 				57F86512296AE5870049484B /* PlanetList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57F86514296C88BC0049484B /* Film */ = {
+			isa = PBXGroup;
+			children = (
+				57F86515296C88DB0049484B /* Data */,
+				57F86516296C88E70049484B /* FilmList */,
+				57F86517296C88F40049484B /* FilmDetail */,
+			);
+			path = Film;
+			sourceTree = "<group>";
+		};
+		57F86515296C88DB0049484B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57F8651E296C8BFD0049484B /* FilmDataSource.swift */,
+				57F86520296C8C3F0049484B /* FilmNS.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57F86516296C88E70049484B /* FilmList */ = {
+			isa = PBXGroup;
+			children = (
+				57F86518296C89150049484B /* Model */,
+			);
+			path = FilmList;
+			sourceTree = "<group>";
+		};
+		57F86517296C88F40049484B /* FilmDetail */ = {
+			isa = PBXGroup;
+			children = (
+				57F86519296C89220049484B /* Model */,
+			);
+			path = FilmDetail;
+			sourceTree = "<group>";
+		};
+		57F86518296C89150049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8651A296C89500049484B /* FilmList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57F86519296C89220049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8651C296C899F0049484B /* Film.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,6 +383,7 @@
 				57F864F62965AB340049484B /* CharacterList.swift in Sources */,
 				57F864FC2968496C0049484B /* ErrorHelper.swift in Sources */,
 				57F865052969889F0049484B /* CharacterDetailView.swift in Sources */,
+				57F8651B296C89500049484B /* FilmList.swift in Sources */,
 				57F86513296AE5870049484B /* PlanetList.swift in Sources */,
 				57F864F82965AC360049484B /* CharacterNS.swift in Sources */,
 				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
@@ -331,9 +392,12 @@
 				57F864F42965AAF80049484B /* Character.swift in Sources */,
 				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
 				57F8650F296AE31E0049484B /* Planet.swift in Sources */,
+				57F8651F296C8BFD0049484B /* FilmDataSource.swift in Sources */,
 				57F86509296AE16C0049484B /* PlanetDataSource.swift in Sources */,
 				57F86503296988890049484B /* CharacterDetailViewModel.swift in Sources */,
+				57F86521296C8C3F0049484B /* FilmNS.swift in Sources */,
 				57F864FE296849A20049484B /* LoadingStateHelper.swift in Sources */,
+				57F8651D296C899F0049484B /* Film.swift in Sources */,
 				573F4A9A2962FE70005CE558 /* StarWarsWikiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

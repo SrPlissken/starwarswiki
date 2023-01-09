@@ -54,11 +54,11 @@ struct CharacterDetailView: View {
                         
                         // Other character data
                         VStack(spacing: 40) {
-                            DetailNavigableCategoryItems(categoryName: "Homeworld", itemName: viewModel.loadedViewModel.homeWorld.name)
-                            DetailNavigableCategoryItems(categoryName: "Films", itemName: "Film1")
-                            DetailNavigableCategoryItems(categoryName: "Species", itemName: "Specie1")
-                            DetailNavigableCategoryItems(categoryName: "Starships", itemName: "Starship1")
-                            DetailNavigableCategoryItems(categoryName: "Vehicles", itemName: "Vehicle1")
+                            DetailNavigableCategoryItems(categoryName: "Homeworld", itemNames: [viewModel.loadedViewModel.homeWorld.name])
+                            DetailNavigableCategoryItems(categoryName: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title } )
+                            DetailNavigableCategoryItems(categoryName: "Species", itemNames: ["Specie1"])
+                            DetailNavigableCategoryItems(categoryName: "Starships", itemNames: ["Starship1"])
+                            DetailNavigableCategoryItems(categoryName: "Vehicles", itemNames: ["Vehicle1"])
                         }
                         
                         
@@ -111,7 +111,7 @@ struct CharacterProperty: View {
 struct DetailNavigableCategoryItems: View {
     
     let categoryName: String
-    let itemName: String
+    let itemNames: [String]
     let categoryImages = ["globe"]
     
     var body: some View {
@@ -122,9 +122,11 @@ struct DetailNavigableCategoryItems: View {
                 Spacer()
             }
             ScrollView(.horizontal) {
-                HStack(spacing: 20) {
-                    ClickableItem(destination: AnyView(EmptyView()), itemName: itemName, itemImage: categoryImages[0])
-                        .frame(width: 200)
+                ForEach(itemNames, id: \.self) { itemName in
+                    HStack(spacing: 20) {
+                        ClickableItem(destination: AnyView(EmptyView()), itemName: itemName, itemImage: categoryImages[0])
+                            .frame(width: 200)
+                    }
                 }
             }
         }

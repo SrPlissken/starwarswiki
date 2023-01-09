@@ -19,6 +19,7 @@ class CharacterDetailViewModel: ObservableObject {
         let id: String
         let characterData: Character
         var homeWorld: Planet
+        var filmList: [Film]
     }
     
     private var dataPublisher: AnyCancellable?
@@ -28,7 +29,7 @@ class CharacterDetailViewModel: ObservableObject {
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
-    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject)
+    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [])
     
     init(characterUrl: String, networkService: CharacterNS) {
         self.characterUrl = characterUrl
@@ -50,8 +51,11 @@ class CharacterDetailViewModel: ObservableObject {
             }
         } receiveValue: { [weak self] profile in
             let characterData = profile
-            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject)
+            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [])
             self?.loadPlanets(homeworld: characterData.homeworld)
+//            if characterData.films.count > 0 {
+//                self?.loadFilms(filmList: characterData.films)
+//            }
             self?.state = .success
         }
     }
@@ -73,4 +77,23 @@ class CharacterDetailViewModel: ObservableObject {
         }
     }
     
+    // Load films of character data
+    func loadFilms(filmList: [String]) {
+        let filmNS: FilmNS = .init()
+        
+        for filmUrl in filmList {
+            dataPublisher = filmNS.getFilmData(for: filmUrl).receive(on: DispatchQueue.main).sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.showErrorAlert = true
+                    self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+                }
+            } receiveValue: { [weak self] film in
+                let filmData = film
+                if self?.loadedViewModel != nil {
+                    self?.loadedViewModel.filmList.append(filmData)
+                }
+                print(film.title)
+            }
+        }
+    }
 }
