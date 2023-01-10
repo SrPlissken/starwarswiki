@@ -8,6 +8,6 @@
 import Foundation
 
 protocol FilmDataSource {
-    func getFilmListData(for page: Int) async -> FilmList
+    func getFilmListData(for page: Int) async throws -> FilmList
     func getFilmData(for filmUrl: String) async throws -> Film
 }

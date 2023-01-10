@@ -7,13 +7,12 @@
 
 
 import Foundation
-import Combine
 
 class FilmNS: FilmDataSource {
     let domain = "https://swapi.dev/api/films/"
     
     // Get planet list data for selected page
-    func getFilmListData(for page: Int) async -> FilmList {
+    func getFilmListData(for page: Int) async throws -> FilmList {
         let sessionUrl = "\(domain)?page=\(page)"
         // Control invalid url
         guard let url = URL(string: sessionUrl) else {

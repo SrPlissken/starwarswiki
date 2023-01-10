@@ -63,16 +63,16 @@ class CharacterDetailViewModel: ObservableObject {
     // Load homeworld data
     func loadPlanets(homeworld: String) {
         let planetNS: PlanetNS = .init()
-        
-        dataPublisher = planetNS.getPlanetData(for: homeworld).receive(on: DispatchQueue.main).sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.showErrorAlert = true
-                self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+        Task {
+            do {
+                let planetData = try await planetNS.getPlanetData(for: homeworld)
+                DispatchQueue.main.async {
+                    self.loadedViewModel.homeWorld = planetData
+                }
             }
-        } receiveValue: { [weak self] planet in
-            let planetData = planet
-            if self?.loadedViewModel != nil {
-                self?.loadedViewModel.homeWorld = planetData
+            catch {
+                self.showErrorAlert = true
+                self.state = .failed(ErrorHelper(message: error.localizedDescription))
             }
         }
     }
