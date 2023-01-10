@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Combine
 
 protocol FilmDataSource {
-    func getFilmListData(for page: Int) -> AnyPublisher<FilmList, Never>
-    func getFilmData(for filmUrl: String) -> AnyPublisher<Film, Never>
+    func getFilmListData(for page: Int) async -> FilmList
+    func getFilmData(for filmUrl: String) async throws -> Film
 }

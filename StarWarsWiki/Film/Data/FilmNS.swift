@@ -5,6 +5,7 @@
 //  Created by Victor Melcon Diez on 9/1/23.
 //
 
+
 import Foundation
 import Combine
 
@@ -12,32 +13,43 @@ class FilmNS: FilmDataSource {
     let domain = "https://swapi.dev/api/films/"
     
     // Get planet list data for selected page
-    func getFilmListData(for page: Int) -> AnyPublisher<FilmList, Never> {
-        // Control invalid url
+    func getFilmListData(for page: Int) async -> FilmList {
         let sessionUrl = "\(domain)?page=\(page)"
+        // Control invalid url
         guard let url = URL(string: sessionUrl) else {
-            return Just<FilmList>(FilmList(count: 0, next: "", previous: "", results: [])).eraseToAnyPublisher()
+            return FilmList(count: 0, next: "", previous: "", results: [])
         }
+        var filmList: FilmList = .init(count: 0, next: "", previous: "", results: [])
         // Go for API call
-        let urlSession: URLSession = .shared
-        return urlSession.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: FilmList.self, decoder: JSONDecoder())
-            .replaceError(with: FilmList(count: 0, next: "", previous: "", results: []))
-            .eraseToAnyPublisher()
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let response = try? JSONDecoder().decode(FilmList.self, from: data) {
+                filmList = response
+            }
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        return filmList
     }
     
     // Get selected planet data
-    func getFilmData(for filmUrl: String) -> AnyPublisher<Film, Never> {
+    func getFilmData(for filmUrl: String) async throws -> Film {
+        // Control invalid url
         guard let url = URL(string: filmUrl) else {
-            return Just<Film>(Film.EmptyObject).eraseToAnyPublisher()
+            return Film.EmptyObject
         }
+        var filmData: Film = Film.EmptyObject
         // Go for API call
-        let urlSession: URLSession = .shared
-        return urlSession.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: Film.self, decoder: JSONDecoder())
-            .replaceError(with: Film.EmptyObject)
-            .eraseToAnyPublisher()
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let response = try? JSONDecoder().decode(Film.self, from: data) {
+                filmData = response
+            }
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        return filmData
     }
 }

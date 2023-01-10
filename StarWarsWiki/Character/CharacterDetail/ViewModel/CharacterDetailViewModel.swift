@@ -53,9 +53,9 @@ class CharacterDetailViewModel: ObservableObject {
             let characterData = profile
             self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [])
             self?.loadPlanets(homeworld: characterData.homeworld)
-//            if characterData.films.count > 0 {
-//                self?.loadFilms(filmList: characterData.films)
-//            }
+            if characterData.films.count > 0 {
+                self?.loadFilms(filmList: characterData.films)
+            }
             self?.state = .success
         }
     }
@@ -82,17 +82,17 @@ class CharacterDetailViewModel: ObservableObject {
         let filmNS: FilmNS = .init()
         
         for filmUrl in filmList {
-            dataPublisher = filmNS.getFilmData(for: filmUrl).receive(on: DispatchQueue.main).sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    self?.showErrorAlert = true
-                    self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+            Task {
+                do {
+                    let filmDt = try await filmNS.getFilmData(for: filmUrl)
+                    DispatchQueue.main.async {
+                        self.loadedViewModel.filmList.append(filmDt)
+                    }
                 }
-            } receiveValue: { [weak self] film in
-                let filmData = film
-                if self?.loadedViewModel != nil {
-                    self?.loadedViewModel.filmList.append(filmData)
+                catch {
+                    self.showErrorAlert = true
+                    self.state = .failed(ErrorHelper(message: error.localizedDescription))
                 }
-                print(film.title)
             }
         }
     }

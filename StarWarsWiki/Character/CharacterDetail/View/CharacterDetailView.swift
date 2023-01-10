@@ -122,8 +122,9 @@ struct DetailNavigableCategoryItems: View {
                 Spacer()
             }
             ScrollView(.horizontal) {
-                ForEach(itemNames, id: \.self) { itemName in
-                    HStack(spacing: 20) {
+                
+                HStack(spacing: 20) {
+                    ForEach(itemNames, id: \.self) { itemName in
                         ClickableItem(destination: AnyView(EmptyView()), itemName: itemName, itemImage: categoryImages[0])
                             .frame(width: 200)
                     }
