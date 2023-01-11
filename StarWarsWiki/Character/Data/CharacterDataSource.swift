@@ -6,9 +6,8 @@
 //
 
 import SwiftUI
-import Combine
 
 protocol CharacterDataSource {
-    func getCharacterListData(for page: Int) -> AnyPublisher<CharacterList, Never>
-    func getCharacterData(for characterUrl: String) -> AnyPublisher<Character, Never>
+    func getCharacterListData(for page: Int) async throws -> CharacterList
+    func getCharacterData(for characterUrl: String) async throws -> Character
 }

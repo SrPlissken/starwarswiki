@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterListView: View {
     
-    @ObservedObject var viewModel: CharacterListViewModel = .init(networkService: CharacterNS())
+    @ObservedObject var viewModel: CharacterListViewModel = .init()
     @State var searchText = ""
     
     var searchResults: [Character] {

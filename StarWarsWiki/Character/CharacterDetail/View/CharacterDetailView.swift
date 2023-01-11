@@ -82,7 +82,7 @@ struct CharacterDetailView: View {
 
 struct CharacterDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterDetailView(viewModel: CharacterDetailViewModel(characterUrl: Character.SampleData.url, networkService: CharacterNS()))
+        CharacterDetailView(viewModel: CharacterDetailViewModel(characterUrl: Character.SampleData.url))
     }
 }
 

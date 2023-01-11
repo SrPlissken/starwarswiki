@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 class CharacterDetailViewModel: ObservableObject {
     
@@ -22,8 +21,6 @@ class CharacterDetailViewModel: ObservableObject {
         var filmList: [Film]
     }
     
-    private var dataPublisher: AnyCancellable?
-    private let networkService: CharacterNS
     private let characterUrl: String
     
     // Loading state, errors and loaded data access
@@ -31,9 +28,8 @@ class CharacterDetailViewModel: ObservableObject {
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [])
     
-    init(characterUrl: String, networkService: CharacterNS) {
+    init(characterUrl: String) {
         self.characterUrl = characterUrl
-        self.networkService = networkService
     }
     
     // Load all profile data for selected character
@@ -43,20 +39,23 @@ class CharacterDetailViewModel: ObservableObject {
         }
         
         state = .loading
-        
-        dataPublisher = networkService.getCharacterData(for: characterUrl).receive(on: DispatchQueue.main).sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.showErrorAlert = true
-                self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+        let characterNS: CharacterNS = .init()
+        Task {
+            do {
+                let characterData = try await characterNS.getCharacterData(for: characterUrl)
+                DispatchQueue.main.async {
+                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [])
+                    self.loadPlanets(homeworld: characterData.homeworld)
+                    if characterData.films.count > 0 {
+                        self.loadFilms(filmList: characterData.films)
+                    }
+                    self.state = .success
+                }
             }
-        } receiveValue: { [weak self] profile in
-            let characterData = profile
-            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [])
-            self?.loadPlanets(homeworld: characterData.homeworld)
-            if characterData.films.count > 0 {
-                self?.loadFilms(filmList: characterData.films)
+            catch {
+                self.showErrorAlert = true
+                self.state = .failed(ErrorHelper(message: error.localizedDescription))
             }
-            self?.state = .success
         }
     }
     

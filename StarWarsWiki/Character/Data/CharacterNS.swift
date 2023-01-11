@@ -6,39 +6,48 @@
 //
 
 import Foundation
-import Combine
 
 class CharacterNS: CharacterDataSource {
-    
     let domain = "https://swapi.dev/api/people/"
     
     // Get character list data for selected page
-    func getCharacterListData(for page: Int) -> AnyPublisher<CharacterList, Never> {
+    func getCharacterListData(for page: Int) async throws -> CharacterList {
         // Control invalid url
         let sessionUrl = "\(domain)?page=\(page)"
         guard let url = URL(string: sessionUrl) else {
-            return Just<CharacterList>(CharacterList(count: 0, next: "", previous: "", results: [])).eraseToAnyPublisher()
+            return CharacterList(count: 0, next: "", previous: "", results: [])
         }
+        var characterList: CharacterList = .init(count: 0, next: "", previous: "", results: [])
         // Go for API call
-        let urlSession: URLSession = .shared
-        return urlSession.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: CharacterList.self, decoder: JSONDecoder())
-            .replaceError(with: CharacterList(count: 0, next: "", previous: "", results: []))
-            .eraseToAnyPublisher()
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let response = try? JSONDecoder().decode(CharacterList.self, from: data) {
+                characterList = response
+            }
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        return characterList
     }
     
     // Get selected character data
-    func getCharacterData(for characterUrl: String) -> AnyPublisher<Character, Never> {
+    func getCharacterData(for characterUrl: String) async throws -> Character {
+        // Control invalid url
         guard let url = URL(string: characterUrl) else {
-            return Just<Character>(Character.EmptyObject).eraseToAnyPublisher()
+            return Character.EmptyObject
         }
+        var characterData: Character = Character.EmptyObject
         // Go for API call
-        let urlSession: URLSession = .shared
-        return urlSession.dataTaskPublisher(for: url)
-            .map { $0.data }
-            .decode(type: Character.self, decoder: JSONDecoder())
-            .replaceError(with: Character.EmptyObject)
-            .eraseToAnyPublisher()
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            if let response = try? JSONDecoder().decode(Character.self, from: data) {
+                characterData = response
+            }
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        return characterData
     }
 }

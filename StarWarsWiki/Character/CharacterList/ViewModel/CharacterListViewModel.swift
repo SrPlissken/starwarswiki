@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 class CharacterListViewModel: ObservableObject {
     
@@ -19,17 +18,13 @@ class CharacterListViewModel: ObservableObject {
         let characterData: CharacterList
     }
     
-    private var dataPublisher: AnyCancellable?
-    private let networkService: CharacterNS
-    
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: .init(count: 0, next: "", previous: "", results: []))
     
     // Constructor
-    init(networkService: CharacterNS) {
-        self.networkService = networkService
+    init() {
     }
     
     // Load character data with loading states and error handling
@@ -40,15 +35,19 @@ class CharacterListViewModel: ObservableObject {
         
         state = .loading
         
-        dataPublisher = networkService.getCharacterListData(for: 1).receive(on: DispatchQueue.main).sink { [weak self] completion in
-            if case .failure(let error) = completion {
-                self?.showErrorAlert = true
-                self?.state = .failed(ErrorHelper(message: error.localizedDescription))
+        let characterNS: CharacterNS = .init()
+        Task {
+            do {
+                let characterData = try await characterNS.getCharacterListData(for: 1)
+                DispatchQueue.main.async {
+                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData)
+                    self.state = .success
+                }
             }
-        } receiveValue: { [weak self] characterList in
-            let characterData = characterList
-            self?.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData)
-            self?.state = .success
+            catch {
+                self.showErrorAlert = true
+                self.state = .failed(ErrorHelper(message: error.localizedDescription))
+            }
         }
     }
 }
