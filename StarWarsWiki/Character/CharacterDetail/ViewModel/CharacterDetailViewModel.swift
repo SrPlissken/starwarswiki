@@ -19,6 +19,7 @@ class CharacterDetailViewModel: ObservableObject {
         let characterData: Character
         var homeWorld: Planet
         var filmList: [Film]
+        var specieList: [Specie]
     }
     
     private let characterUrl: String
@@ -26,7 +27,7 @@ class CharacterDetailViewModel: ObservableObject {
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
-    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [])
+    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [], specieList: [])
     
     init(characterUrl: String) {
         self.characterUrl = characterUrl
@@ -44,10 +45,13 @@ class CharacterDetailViewModel: ObservableObject {
             do {
                 let characterData = try await characterNS.getCharacterData(for: characterUrl)
                 DispatchQueue.main.async {
-                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [])
+                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [], specieList: [])
                     self.loadPlanets(homeworld: characterData.homeworld)
                     if characterData.films.count > 0 {
                         self.loadFilms(filmList: characterData.films)
+                    }
+                    if characterData.species.count > 0 {
+                        self.loadSpecies(specieList: characterData.species)
                     }
                     self.state = .success
                 }
@@ -86,6 +90,26 @@ class CharacterDetailViewModel: ObservableObject {
                     let filmDt = try await filmNS.getFilmData(for: filmUrl)
                     DispatchQueue.main.async {
                         self.loadedViewModel.filmList.append(filmDt)
+                    }
+                }
+                catch {
+                    self.showErrorAlert = true
+                    self.state = .failed(ErrorHelper(message: error.localizedDescription))
+                }
+            }
+        }
+    }
+    
+    // Load specie of character
+    func loadSpecies(specieList: [String]) {
+        let specieNS: SpecieNS = .init()
+        
+        for specieUrl in specieList {
+            Task {
+                do {
+                    let specieDt = try await specieNS.getSpecieData(for: specieUrl)
+                    DispatchQueue.main.async {
+                        self.loadedViewModel.specieList.append(specieDt)
                     }
                 }
                 catch {

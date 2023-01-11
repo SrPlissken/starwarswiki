@@ -30,6 +30,10 @@
 		57F8651D296C899F0049484B /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8651C296C899F0049484B /* Film.swift */; };
 		57F8651F296C8BFD0049484B /* FilmDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8651E296C8BFD0049484B /* FilmDataSource.swift */; };
 		57F86521296C8C3F0049484B /* FilmNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86520296C8C3F0049484B /* FilmNS.swift */; };
+		57F86527296F3C270049484B /* SpecieDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86526296F3C270049484B /* SpecieDataSource.swift */; };
+		57F8652B296F3CB80049484B /* SpecieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8652A296F3CB80049484B /* SpecieList.swift */; };
+		57F8652D296F3CD20049484B /* Specie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8652C296F3CD20049484B /* Specie.swift */; };
+		57F8652F296F3F780049484B /* SpecieNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8652E296F3F780049484B /* SpecieNS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +61,10 @@
 		57F8651C296C899F0049484B /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		57F8651E296C8BFD0049484B /* FilmDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDataSource.swift; sourceTree = "<group>"; };
 		57F86520296C8C3F0049484B /* FilmNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmNS.swift; sourceTree = "<group>"; };
+		57F86526296F3C270049484B /* SpecieDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieDataSource.swift; sourceTree = "<group>"; };
+		57F8652A296F3CB80049484B /* SpecieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieList.swift; sourceTree = "<group>"; };
+		57F8652C296F3CD20049484B /* Specie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specie.swift; sourceTree = "<group>"; };
+		57F8652E296F3F780049484B /* SpecieNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieNS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				573F4AAD29645512005CE558 /* Helpers */,
+				57F86522296F3BB30049484B /* Species */,
 				57F86514296C88BC0049484B /* Film */,
 				57F86506296AE11E0049484B /* Planet */,
 				57F864F12965AAD70049484B /* Character */,
@@ -308,6 +317,57 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		57F86522296F3BB30049484B /* Species */ = {
+			isa = PBXGroup;
+			children = (
+				57F86523296F3BBD0049484B /* Data */,
+				57F86524296F3BC80049484B /* SpeciesList */,
+				57F86525296F3BF10049484B /* SpeciesDetail */,
+			);
+			path = Species;
+			sourceTree = "<group>";
+		};
+		57F86523296F3BBD0049484B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57F86526296F3C270049484B /* SpecieDataSource.swift */,
+				57F8652E296F3F780049484B /* SpecieNS.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57F86524296F3BC80049484B /* SpeciesList */ = {
+			isa = PBXGroup;
+			children = (
+				57F86528296F3C890049484B /* Model */,
+			);
+			path = SpeciesList;
+			sourceTree = "<group>";
+		};
+		57F86525296F3BF10049484B /* SpeciesDetail */ = {
+			isa = PBXGroup;
+			children = (
+				57F86529296F3C8F0049484B /* Model */,
+			);
+			path = SpeciesDetail;
+			sourceTree = "<group>";
+		};
+		57F86528296F3C890049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8652A296F3CB80049484B /* SpecieList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57F86529296F3C8F0049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8652C296F3CD20049484B /* Specie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -378,13 +438,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F8652F296F3F780049484B /* SpecieNS.swift in Sources */,
 				57F8650B296AE28B0049484B /* PlanetNS.swift in Sources */,
 				57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */,
 				57F864F62965AB340049484B /* CharacterList.swift in Sources */,
 				57F864FC2968496C0049484B /* ErrorHelper.swift in Sources */,
+				57F8652D296F3CD20049484B /* Specie.swift in Sources */,
+				57F8652B296F3CB80049484B /* SpecieList.swift in Sources */,
 				57F865052969889F0049484B /* CharacterDetailView.swift in Sources */,
 				57F8651B296C89500049484B /* FilmList.swift in Sources */,
 				57F86513296AE5870049484B /* PlanetList.swift in Sources */,
+				57F86527296F3C270049484B /* SpecieDataSource.swift in Sources */,
 				57F864F82965AC360049484B /* CharacterNS.swift in Sources */,
 				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
 				57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */,

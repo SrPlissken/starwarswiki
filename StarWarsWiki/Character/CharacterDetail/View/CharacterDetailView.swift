@@ -56,7 +56,9 @@ struct CharacterDetailView: View {
                         VStack(spacing: 40) {
                             DetailNavigableCategoryItems(categoryName: "Homeworld", itemNames: [viewModel.loadedViewModel.homeWorld.name])
                             DetailNavigableCategoryItems(categoryName: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title } )
-                            DetailNavigableCategoryItems(categoryName: "Species", itemNames: ["Specie1"])
+                            if(viewModel.loadedViewModel.specieList.count > 0) {
+                                DetailNavigableCategoryItems(categoryName: "Species", itemNames: viewModel.loadedViewModel.specieList.map{ $0.name })
+                            }
                             DetailNavigableCategoryItems(categoryName: "Starships", itemNames: ["Starship1"])
                             DetailNavigableCategoryItems(categoryName: "Vehicles", itemNames: ["Vehicle1"])
                         }
