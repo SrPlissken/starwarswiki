@@ -21,6 +21,7 @@ class CharacterDetailViewModel: ObservableObject {
         var filmList: [Film]
         var specieList: [Specie]
         var starshipList: [Starship]
+        var vehicleList: [Vehicle]
     }
     
     private let characterUrl: String
@@ -28,7 +29,7 @@ class CharacterDetailViewModel: ObservableObject {
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
-    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [])
+    @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [], vehicleList: [])
     
     init(characterUrl: String) {
         self.characterUrl = characterUrl
@@ -46,7 +47,7 @@ class CharacterDetailViewModel: ObservableObject {
             do {
                 let characterData = try await characterNS.getCharacterData(for: characterUrl)
                 DispatchQueue.main.async {
-                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [])
+                    self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [], vehicleList: [])
                     self.loadPlanets(homeworld: characterData.homeworld)
                     if characterData.films.count > 0 {
                         self.loadFilms(filmList: characterData.films)
@@ -56,6 +57,9 @@ class CharacterDetailViewModel: ObservableObject {
                     }
                     if characterData.starships.count > 0 {
                         self.loadStarship(starshipList: characterData.starships)
+                    }
+                    if characterData.vehicles.count > 0 {
+                        self.loadVehicle(vehicleList: characterData.vehicles)
                     }
                     self.state = .success
                 }
@@ -134,6 +138,26 @@ class CharacterDetailViewModel: ObservableObject {
                     let starshipDt = try await starshipNS.getStarshipData(for: starshipUrl)
                     DispatchQueue.main.async {
                         self.loadedViewModel.starshipList.append(starshipDt)
+                    }
+                }
+                catch {
+                    self.showErrorAlert = true
+                    self.state = .failed(ErrorHelper(message: error.localizedDescription))
+                }
+            }
+        }
+    }
+    
+    // Load vehicles of character
+    func loadVehicle(vehicleList: [String]) {
+        let vehicleNS: VehicleNS = .init()
+        
+        for vehicleUrl in vehicleList {
+            Task {
+                do {
+                    let vehicleDt = try await vehicleNS.getVehicleData(for: vehicleUrl)
+                    DispatchQueue.main.async {
+                        self.loadedViewModel.vehicleList.append(vehicleDt)
                     }
                 }
                 catch {

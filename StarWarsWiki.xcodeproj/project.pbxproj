@@ -38,6 +38,10 @@
 		57F86537297084F60049484B /* StartshipNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86536297084F60049484B /* StartshipNS.swift */; };
 		57F8653B2970851F0049484B /* StarshipList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8653A2970851F0049484B /* StarshipList.swift */; };
 		57F8653D2970852C0049484B /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8653C2970852C0049484B /* Starship.swift */; };
+		57F8654429708DEE0049484B /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8654329708DEE0049484B /* Vehicle.swift */; };
+		57F8654729708E560049484B /* VehicleList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8654629708E560049484B /* VehicleList.swift */; };
+		57F865492970900A0049484B /* VehicleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F865482970900A0049484B /* VehicleDataSource.swift */; };
+		57F8654B297090190049484B /* VehicleNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8654A297090190049484B /* VehicleNS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +77,10 @@
 		57F86536297084F60049484B /* StartshipNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartshipNS.swift; sourceTree = "<group>"; };
 		57F8653A2970851F0049484B /* StarshipList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipList.swift; sourceTree = "<group>"; };
 		57F8653C2970852C0049484B /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
+		57F8654329708DEE0049484B /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		57F8654629708E560049484B /* VehicleList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleList.swift; sourceTree = "<group>"; };
+		57F865482970900A0049484B /* VehicleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDataSource.swift; sourceTree = "<group>"; };
+		57F8654A297090190049484B /* VehicleNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleNS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				573F4AAD29645512005CE558 /* Helpers */,
+				57F8653E29708D2A0049484B /* Vehicle */,
 				57F865302970846E0049484B /* Starship */,
 				57F86522296F3BB30049484B /* Species */,
 				57F86514296C88BC0049484B /* Film */,
@@ -428,6 +437,57 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		57F8653E29708D2A0049484B /* Vehicle */ = {
+			isa = PBXGroup;
+			children = (
+				57F8654129708DCC0049484B /* Data */,
+				57F8654029708DB40049484B /* VehicleList */,
+				57F8653F29708D410049484B /* VehicleDetail */,
+			);
+			path = Vehicle;
+			sourceTree = "<group>";
+		};
+		57F8653F29708D410049484B /* VehicleDetail */ = {
+			isa = PBXGroup;
+			children = (
+				57F8654229708DD70049484B /* Model */,
+			);
+			path = VehicleDetail;
+			sourceTree = "<group>";
+		};
+		57F8654029708DB40049484B /* VehicleList */ = {
+			isa = PBXGroup;
+			children = (
+				57F8654529708E470049484B /* Model */,
+			);
+			path = VehicleList;
+			sourceTree = "<group>";
+		};
+		57F8654129708DCC0049484B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57F865482970900A0049484B /* VehicleDataSource.swift */,
+				57F8654A297090190049484B /* VehicleNS.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57F8654229708DD70049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8654329708DEE0049484B /* Vehicle.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		57F8654529708E470049484B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				57F8654629708E560049484B /* VehicleList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -503,6 +563,7 @@
 				57F86537297084F60049484B /* StartshipNS.swift in Sources */,
 				57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */,
 				57F864F62965AB340049484B /* CharacterList.swift in Sources */,
+				57F8654B297090190049484B /* VehicleNS.swift in Sources */,
 				57F864FC2968496C0049484B /* ErrorHelper.swift in Sources */,
 				57F8652D296F3CD20049484B /* Specie.swift in Sources */,
 				57F8652B296F3CB80049484B /* SpecieList.swift in Sources */,
@@ -516,6 +577,7 @@
 				57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */,
 				573F4A9C2962FE70005CE558 /* ContentView.swift in Sources */,
 				57F8653D2970852C0049484B /* Starship.swift in Sources */,
+				57F8654429708DEE0049484B /* Vehicle.swift in Sources */,
 				57F864F42965AAF80049484B /* Character.swift in Sources */,
 				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
 				57F8650F296AE31E0049484B /* Planet.swift in Sources */,
@@ -524,7 +586,9 @@
 				57F86503296988890049484B /* CharacterDetailViewModel.swift in Sources */,
 				57F86521296C8C3F0049484B /* FilmNS.swift in Sources */,
 				57F864FE296849A20049484B /* LoadingStateHelper.swift in Sources */,
+				57F8654729708E560049484B /* VehicleList.swift in Sources */,
 				57F8651D296C899F0049484B /* Film.swift in Sources */,
+				57F865492970900A0049484B /* VehicleDataSource.swift in Sources */,
 				573F4A9A2962FE70005CE558 /* StarWarsWikiApp.swift in Sources */,
 				57F8653B2970851F0049484B /* StarshipList.swift in Sources */,
 			);
