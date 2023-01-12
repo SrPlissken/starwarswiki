@@ -59,7 +59,9 @@ struct CharacterDetailView: View {
                             if(viewModel.loadedViewModel.specieList.count > 0) {
                                 DetailNavigableCategoryItems(categoryName: "Species", itemNames: viewModel.loadedViewModel.specieList.map{ $0.name })
                             }
-                            DetailNavigableCategoryItems(categoryName: "Starships", itemNames: ["Starship1"])
+                            if(viewModel.loadedViewModel.starshipList.count > 0) {
+                                DetailNavigableCategoryItems(categoryName: "Starships", itemNames: viewModel.loadedViewModel.starshipList.map{ $0.name })
+                            }
                             DetailNavigableCategoryItems(categoryName: "Vehicles", itemNames: ["Vehicle1"])
                         }
                         
