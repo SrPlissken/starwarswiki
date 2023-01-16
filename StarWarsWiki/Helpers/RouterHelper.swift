@@ -15,17 +15,21 @@ final class RouterHelper {
         case 0:
             return AnyView(CharacterListView())
         case 1:
-            return AnyView(EmptyView())
+            return AnyView(StarshipListView())
         default:
             return AnyView(EmptyView())
         }
     }
     
     // Helper to navigate to desired detail item section
-    public static func GetViewForDetailSection(category: String, character: Character) -> AnyView {
+    public static func GetViewForDetailSection(category: String, data: Any) -> AnyView {
         switch category {
         case "Character":
+            let character: Character = data as! Character
             return AnyView(CharacterDetailView(viewModel: CharacterDetailViewModel(characterUrl: character.url)))
+        case "Starship":
+            let _: Starship = data as! Starship
+            return AnyView(EmptyView())
         default:
             return AnyView(EmptyView())
         }

@@ -1,19 +1,18 @@
 //
-//  CharacterListView.swift
+//  StarshipListView.swift
 //  StarWarsWiki
 //
-//  Created by Victor Melcon Diez on 3/1/23.
+//  Created by Victor Melcon Diez on 16/1/23.
 //
 
 import SwiftUI
 
-struct CharacterListView: View {
-    
-    @ObservedObject var viewModel: CharacterListViewModel = .init()
+struct StarshipListView: View {
+    @ObservedObject var viewModel: StarshipListViewModel = .init()
     @State var searchText = ""
     
-    var searchResults: [Character] {
-        viewModel.loadedViewModel.characterData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
+    var searchResults: [Starship] {
+        viewModel.loadedViewModel.starshipData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
     }
     
     var body: some View {
@@ -26,7 +25,7 @@ struct CharacterListView: View {
             // View state load
             switch state {
             case .idle:
-                Color.clear.onAppear(perform: viewModel.loadCharacterListData)
+                Color.clear.onAppear(perform: viewModel.loadStarshipListData)
             case .loading:
                 VStack(spacing: 10) {
                     ProgressView()
@@ -38,7 +37,7 @@ struct CharacterListView: View {
                         ScrollView {
                             LazyVGrid(columns: [GridItem(), GridItem()]) {
                                 ForEach(searchResults, id: \.self) { item in
-                                    ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Character", data: item), itemName: item.name, itemImage: "person.2")
+                                    ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Starship", data: item), itemName: item.name, itemImage: "airplane.departure")
                                 }
                             }
                             .padding(30)
@@ -62,34 +61,8 @@ struct CharacterListView: View {
         .searchable(text: $searchText)    }
 }
 
-struct CharacterListView_Previews: PreviewProvider {
+struct StarshipListView_Previews: PreviewProvider {
     static var previews: some View {
-        CharacterListView()
-    }
-}
-
-struct ClickableItem: View {
-    
-    let destination: AnyView
-    let itemName: String
-    let itemImage: String
-    
-    var body: some View {
-        NavigationLink(destination: destination) {
-            VStack(spacing: 15) {
-                Image(systemName: itemImage)
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-                Text(itemName)
-                    .font(.title2)
-                    .fontWeight(.bold)
-            }
-            .frame(maxWidth: .infinity, maxHeight: 130)
-            .padding(5)
-            .foregroundColor(.orange)
-            .background(Color.brown)
-            .cornerRadius(20)
-        }
+        StarshipListView()
     }
 }

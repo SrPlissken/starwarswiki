@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let categoryImages = ["person.2", "airplane.departure", "globe"]
-    let categoryTitle = ["Characters", "Ships", "Planets"]
+    let categoryImages = ["person.2", "airplane.departure", "globe", "film.stack", "lizard", "airplane"]
+    let categoryTitle = ["Characters", "Starships", "Planets", "Films", "Species", "Vehicles"]
     
     var body: some View {
         NavigationView {
