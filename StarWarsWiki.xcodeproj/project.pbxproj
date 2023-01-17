@@ -44,6 +44,8 @@
 		57F8654B297090190049484B /* VehicleNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8654A297090190049484B /* VehicleNS.swift */; };
 		57F8654F2975C2BA0049484B /* StarshipListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8654E2975C2BA0049484B /* StarshipListViewModel.swift */; };
 		57F865512975C2E00049484B /* StarshipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F865502975C2E00049484B /* StarshipListView.swift */; };
+		57F8655529770A200049484B /* StarshipDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655429770A200049484B /* StarshipDetailViewModel.swift */; };
+		57F8655729770F280049484B /* StarshipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655629770F280049484B /* StarshipDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		57F8654A297090190049484B /* VehicleNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleNS.swift; sourceTree = "<group>"; };
 		57F8654E2975C2BA0049484B /* StarshipListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipListViewModel.swift; sourceTree = "<group>"; };
 		57F865502975C2E00049484B /* StarshipListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipListView.swift; sourceTree = "<group>"; };
+		57F8655429770A200049484B /* StarshipDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipDetailViewModel.swift; sourceTree = "<group>"; };
+		57F8655629770F280049484B /* StarshipDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +426,8 @@
 		57F86533297084B70049484B /* StarshipDetail */ = {
 			isa = PBXGroup;
 			children = (
+				57F865532977093B0049484B /* ViewModel */,
+				57F86552297709300049484B /* View */,
 				57F86539297085080049484B /* Model */,
 			);
 			name = StarshipDetail;
@@ -510,6 +516,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		57F86552297709300049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F8655629770F280049484B /* StarshipDetailView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		57F865532977093B0049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F8655429770A200049484B /* StarshipDetailViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -581,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57F8652F296F3F780049484B /* SpecieNS.swift in Sources */,
+				57F8655529770A200049484B /* StarshipDetailViewModel.swift in Sources */,
 				57F8650B296AE28B0049484B /* PlanetNS.swift in Sources */,
 				57F86537297084F60049484B /* StartshipNS.swift in Sources */,
 				57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */,
@@ -612,6 +635,7 @@
 				57F864FE296849A20049484B /* LoadingStateHelper.swift in Sources */,
 				57F8654729708E560049484B /* VehicleList.swift in Sources */,
 				57F8651D296C899F0049484B /* Film.swift in Sources */,
+				57F8655729770F280049484B /* StarshipDetailView.swift in Sources */,
 				57F865492970900A0049484B /* VehicleDataSource.swift in Sources */,
 				573F4A9A2962FE70005CE558 /* StarWarsWikiApp.swift in Sources */,
 				57F8653B2970851F0049484B /* StarshipList.swift in Sources */,

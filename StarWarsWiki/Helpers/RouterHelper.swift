@@ -28,8 +28,8 @@ final class RouterHelper {
             let character: Character = data as! Character
             return AnyView(CharacterDetailView(viewModel: CharacterDetailViewModel(characterUrl: character.url)))
         case "Starship":
-            let _: Starship = data as! Starship
-            return AnyView(EmptyView())
+            let starship: Starship = data as! Starship
+            return AnyView(StarshipDetailView(viewModel: StarshipDetailViewModel(starshipUrl: starship.url)))
         default:
             return AnyView(EmptyView())
         }

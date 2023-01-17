@@ -54,7 +54,7 @@ struct StarshipListView: View {
                 }
             }
         }
-        .navigationBarTitle(Text("Character"), displayMode: .inline)
+        .navigationBarTitle(Text("Starship"), displayMode: .inline)
         .background(.black)
         .foregroundColor(.white)
         .preferredColorScheme(.dark)
