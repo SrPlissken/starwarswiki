@@ -46,6 +46,10 @@
 		57F865512975C2E00049484B /* StarshipListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F865502975C2E00049484B /* StarshipListView.swift */; };
 		57F8655529770A200049484B /* StarshipDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655429770A200049484B /* StarshipDetailViewModel.swift */; };
 		57F8655729770F280049484B /* StarshipDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655629770F280049484B /* StarshipDetailView.swift */; };
+		57F8655B297D553E0049484B /* PlanetListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655A297D553E0049484B /* PlanetListViewModel.swift */; };
+		57F8655D297D55F40049484B /* PlanetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655C297D55F40049484B /* PlanetListView.swift */; };
+		57F86561297D579A0049484B /* PlanetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86560297D579A0049484B /* PlanetDetailViewModel.swift */; };
+		57F86563297D5A4A0049484B /* PlanetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86562297D5A4A0049484B /* PlanetDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +93,10 @@
 		57F865502975C2E00049484B /* StarshipListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipListView.swift; sourceTree = "<group>"; };
 		57F8655429770A200049484B /* StarshipDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipDetailViewModel.swift; sourceTree = "<group>"; };
 		57F8655629770F280049484B /* StarshipDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipDetailView.swift; sourceTree = "<group>"; };
+		57F8655A297D553E0049484B /* PlanetListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetListViewModel.swift; sourceTree = "<group>"; };
+		57F8655C297D55F40049484B /* PlanetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetListView.swift; sourceTree = "<group>"; };
+		57F86560297D579A0049484B /* PlanetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailViewModel.swift; sourceTree = "<group>"; };
+		57F86562297D5A4A0049484B /* PlanetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +271,8 @@
 		57F8650C296AE2FE0049484B /* PlanetDetail */ = {
 			isa = PBXGroup;
 			children = (
+				57F8655F297D57060049484B /* ViewModel */,
+				57F8655E297D57000049484B /* View */,
 				57F8650D296AE30F0049484B /* Model */,
 			);
 			path = PlanetDetail;
@@ -279,6 +289,8 @@
 		57F86510296AE56F0049484B /* PlanetList */ = {
 			isa = PBXGroup;
 			children = (
+				57F86559297D550B0049484B /* ViewModel */,
+				57F86558297D55000049484B /* View */,
 				57F86511296AE5770049484B /* Model */,
 			);
 			path = PlanetList;
@@ -532,6 +544,38 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
+		57F86558297D55000049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F8655C297D55F40049484B /* PlanetListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F86559297D550B0049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F8655A297D553E0049484B /* PlanetListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		57F8655E297D57000049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F86562297D5A4A0049484B /* PlanetDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F8655F297D57060049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F86560297D579A0049484B /* PlanetDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -613,11 +657,13 @@
 				57F8652D296F3CD20049484B /* Specie.swift in Sources */,
 				57F8652B296F3CB80049484B /* SpecieList.swift in Sources */,
 				57F865052969889F0049484B /* CharacterDetailView.swift in Sources */,
+				57F8655D297D55F40049484B /* PlanetListView.swift in Sources */,
 				57F8651B296C89500049484B /* FilmList.swift in Sources */,
 				57F86513296AE5870049484B /* PlanetList.swift in Sources */,
 				57F86535297084DC0049484B /* StarshipDataSource.swift in Sources */,
 				57F86527296F3C270049484B /* SpecieDataSource.swift in Sources */,
 				57F8654F2975C2BA0049484B /* StarshipListViewModel.swift in Sources */,
+				57F8655B297D553E0049484B /* PlanetListViewModel.swift in Sources */,
 				57F864F82965AC360049484B /* CharacterNS.swift in Sources */,
 				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
 				57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */,
@@ -627,12 +673,14 @@
 				57F8654429708DEE0049484B /* Vehicle.swift in Sources */,
 				57F864F42965AAF80049484B /* Character.swift in Sources */,
 				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
+				57F86563297D5A4A0049484B /* PlanetDetailView.swift in Sources */,
 				57F8650F296AE31E0049484B /* Planet.swift in Sources */,
 				57F8651F296C8BFD0049484B /* FilmDataSource.swift in Sources */,
 				57F86509296AE16C0049484B /* PlanetDataSource.swift in Sources */,
 				57F86503296988890049484B /* CharacterDetailViewModel.swift in Sources */,
 				57F86521296C8C3F0049484B /* FilmNS.swift in Sources */,
 				57F864FE296849A20049484B /* LoadingStateHelper.swift in Sources */,
+				57F86561297D579A0049484B /* PlanetDetailViewModel.swift in Sources */,
 				57F8654729708E560049484B /* VehicleList.swift in Sources */,
 				57F8651D296C899F0049484B /* Film.swift in Sources */,
 				57F8655729770F280049484B /* StarshipDetailView.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Planet: Codable {
+struct Planet: Codable, Hashable {
     var name: String
     var rotation_period: String
     var orbital_period: String
