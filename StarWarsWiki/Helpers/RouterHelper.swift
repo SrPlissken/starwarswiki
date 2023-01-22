@@ -18,6 +18,8 @@ final class RouterHelper {
             return AnyView(StarshipListView())
         case 2:
             return AnyView(PlanetListView())
+        case 3:
+            return AnyView(FilmListView())
         default:
             return AnyView(EmptyView())
         }
@@ -35,6 +37,9 @@ final class RouterHelper {
         case "Planet":
             let planet: Planet = data as! Planet
             return AnyView(PlanetDetailView(viewModel: PlanetDetailViewModel(planetUrl: planet.url)))
+        case "Film":
+            let film: Film = data as! Film
+            return AnyView(FilmDetailView(viewModel: FilmDetailViewModel(filmUrl: film.url)))
         default:
             return AnyView(EmptyView())
         }

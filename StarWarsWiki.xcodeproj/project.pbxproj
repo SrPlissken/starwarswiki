@@ -50,6 +50,10 @@
 		57F8655D297D55F40049484B /* PlanetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8655C297D55F40049484B /* PlanetListView.swift */; };
 		57F86561297D579A0049484B /* PlanetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86560297D579A0049484B /* PlanetDetailViewModel.swift */; };
 		57F86563297D5A4A0049484B /* PlanetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86562297D5A4A0049484B /* PlanetDetailView.swift */; };
+		57F86567297D8F3D0049484B /* FilmListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86566297D8F3D0049484B /* FilmListViewModel.swift */; };
+		57F86569297D8FEA0049484B /* FilmListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86568297D8FEA0049484B /* FilmListView.swift */; };
+		57F8656D297D91540049484B /* FilmDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8656C297D91540049484B /* FilmDetailViewModel.swift */; };
+		57F8656F297D96A50049484B /* FilmDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8656E297D96A50049484B /* FilmDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,6 +101,10 @@
 		57F8655C297D55F40049484B /* PlanetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetListView.swift; sourceTree = "<group>"; };
 		57F86560297D579A0049484B /* PlanetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailViewModel.swift; sourceTree = "<group>"; };
 		57F86562297D5A4A0049484B /* PlanetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDetailView.swift; sourceTree = "<group>"; };
+		57F86566297D8F3D0049484B /* FilmListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmListViewModel.swift; sourceTree = "<group>"; };
+		57F86568297D8FEA0049484B /* FilmListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmListView.swift; sourceTree = "<group>"; };
+		57F8656C297D91540049484B /* FilmDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewModel.swift; sourceTree = "<group>"; };
+		57F8656E297D96A50049484B /* FilmDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +334,8 @@
 		57F86516296C88E70049484B /* FilmList */ = {
 			isa = PBXGroup;
 			children = (
+				57F86565297D8EB80049484B /* ViewModel */,
+				57F86564297D8EB20049484B /* View */,
 				57F86518296C89150049484B /* Model */,
 			);
 			path = FilmList;
@@ -334,6 +344,8 @@
 		57F86517296C88F40049484B /* FilmDetail */ = {
 			isa = PBXGroup;
 			children = (
+				57F8656B297D91370049484B /* ViewModel */,
+				57F8656A297D912F0049484B /* View */,
 				57F86519296C89220049484B /* Model */,
 			);
 			path = FilmDetail;
@@ -576,6 +588,38 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		57F86564297D8EB20049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F86568297D8FEA0049484B /* FilmListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F86565297D8EB80049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F86566297D8F3D0049484B /* FilmListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		57F8656A297D912F0049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F8656E297D96A50049484B /* FilmDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F8656B297D91370049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F8656C297D91540049484B /* FilmDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -646,7 +690,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F86567297D8F3D0049484B /* FilmListViewModel.swift in Sources */,
 				57F8652F296F3F780049484B /* SpecieNS.swift in Sources */,
+				57F86569297D8FEA0049484B /* FilmListView.swift in Sources */,
+				57F8656D297D91540049484B /* FilmDetailViewModel.swift in Sources */,
 				57F8655529770A200049484B /* StarshipDetailViewModel.swift in Sources */,
 				57F8650B296AE28B0049484B /* PlanetNS.swift in Sources */,
 				57F86537297084F60049484B /* StartshipNS.swift in Sources */,
@@ -668,6 +715,7 @@
 				573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */,
 				57F864FA2965B1220049484B /* CharacterListViewModel.swift in Sources */,
 				57F865512975C2E00049484B /* StarshipListView.swift in Sources */,
+				57F8656F297D96A50049484B /* FilmDetailView.swift in Sources */,
 				573F4A9C2962FE70005CE558 /* ContentView.swift in Sources */,
 				57F8653D2970852C0049484B /* Starship.swift in Sources */,
 				57F8654429708DEE0049484B /* Vehicle.swift in Sources */,
