@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Specie: Codable {
+struct Specie: Codable, Hashable {
     var name: String
     var classification: String
     var designation: String
