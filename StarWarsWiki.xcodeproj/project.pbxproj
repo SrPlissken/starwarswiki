@@ -58,6 +58,10 @@
 		57F86577297EEACA0049484B /* SpecieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86576297EEACA0049484B /* SpecieListView.swift */; };
 		57F8657B297EEC430049484B /* SpecieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8657A297EEC430049484B /* SpecieDetailViewModel.swift */; };
 		57F8657D297EEE460049484B /* SpecieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F8657C297EEE460049484B /* SpecieDetailView.swift */; };
+		57F86581297EF5CD0049484B /* VehicleListviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86580297EF5CD0049484B /* VehicleListviewModel.swift */; };
+		57F86583297EF6520049484B /* VehicleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86582297EF6520049484B /* VehicleListView.swift */; };
+		57F86587297EF7530049484B /* VehicleDetailviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86586297EF7530049484B /* VehicleDetailviewModel.swift */; };
+		57F86589297EF89C0049484B /* VehicleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F86588297EF89C0049484B /* VehicleDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +117,10 @@
 		57F86576297EEACA0049484B /* SpecieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieListView.swift; sourceTree = "<group>"; };
 		57F8657A297EEC430049484B /* SpecieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieDetailViewModel.swift; sourceTree = "<group>"; };
 		57F8657C297EEE460049484B /* SpecieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecieDetailView.swift; sourceTree = "<group>"; };
+		57F86580297EF5CD0049484B /* VehicleListviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleListviewModel.swift; sourceTree = "<group>"; };
+		57F86582297EF6520049484B /* VehicleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleListView.swift; sourceTree = "<group>"; };
+		57F86586297EF7530049484B /* VehicleDetailviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailviewModel.swift; sourceTree = "<group>"; };
+		57F86588297EF89C0049484B /* VehicleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,6 +506,8 @@
 		57F8653F29708D410049484B /* VehicleDetail */ = {
 			isa = PBXGroup;
 			children = (
+				57F86585297EF72F0049484B /* ViewModel */,
+				57F86584297EF72A0049484B /* View */,
 				57F8654229708DD70049484B /* Model */,
 			);
 			path = VehicleDetail;
@@ -506,6 +516,8 @@
 		57F8654029708DB40049484B /* VehicleList */ = {
 			isa = PBXGroup;
 			children = (
+				57F8657F297EF5990049484B /* ViewModel */,
+				57F8657E297EF5930049484B /* View */,
 				57F8654529708E470049484B /* Model */,
 			);
 			path = VehicleList;
@@ -664,6 +676,38 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		57F8657E297EF5930049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F86582297EF6520049484B /* VehicleListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F8657F297EF5990049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F86580297EF5CD0049484B /* VehicleListviewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		57F86584297EF72A0049484B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				57F86588297EF89C0049484B /* VehicleDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		57F86585297EF72F0049484B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				57F86586297EF7530049484B /* VehicleDetailviewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -736,6 +780,7 @@
 			files = (
 				57F86567297D8F3D0049484B /* FilmListViewModel.swift in Sources */,
 				57F8652F296F3F780049484B /* SpecieNS.swift in Sources */,
+				57F86583297EF6520049484B /* VehicleListView.swift in Sources */,
 				57F86569297D8FEA0049484B /* FilmListView.swift in Sources */,
 				57F8656D297D91540049484B /* FilmDetailViewModel.swift in Sources */,
 				57F8655529770A200049484B /* StarshipDetailViewModel.swift in Sources */,
@@ -749,7 +794,9 @@
 				57F8652B296F3CB80049484B /* SpecieList.swift in Sources */,
 				57F865052969889F0049484B /* CharacterDetailView.swift in Sources */,
 				57F8655D297D55F40049484B /* PlanetListView.swift in Sources */,
+				57F86581297EF5CD0049484B /* VehicleListviewModel.swift in Sources */,
 				57F8651B296C89500049484B /* FilmList.swift in Sources */,
+				57F86589297EF89C0049484B /* VehicleDetailView.swift in Sources */,
 				57F86513296AE5870049484B /* PlanetList.swift in Sources */,
 				57F86535297084DC0049484B /* StarshipDataSource.swift in Sources */,
 				57F86527296F3C270049484B /* SpecieDataSource.swift in Sources */,
@@ -766,6 +813,7 @@
 				57F864F42965AAF80049484B /* Character.swift in Sources */,
 				573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */,
 				57F86563297D5A4A0049484B /* PlanetDetailView.swift in Sources */,
+				57F86587297EF7530049484B /* VehicleDetailviewModel.swift in Sources */,
 				57F8650F296AE31E0049484B /* Planet.swift in Sources */,
 				57F86577297EEACA0049484B /* SpecieListView.swift in Sources */,
 				57F86573297EE9D30049484B /* SpecieListViewModel.swift in Sources */,

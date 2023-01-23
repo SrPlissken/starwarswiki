@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vehicle: Codable {
+struct Vehicle: Codable, Hashable {
     var name: String
     var model: String
     var manufacturer: String

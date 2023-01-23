@@ -22,6 +22,8 @@ final class RouterHelper {
             return AnyView(FilmListView())
         case 4:
             return AnyView(SpecieListView())
+        case 5:
+            return AnyView(VehicleListView())
         default:
             return AnyView(EmptyView())
         }
@@ -45,6 +47,9 @@ final class RouterHelper {
         case "Specie":
             let specie: Specie = data as! Specie
             return AnyView(SpecieDetailView(viewModel: SpecieDetailViewModel(specieUrl: specie.url)))
+        case "Vehicle":
+            let vehicle: Vehicle = data as! Vehicle
+            return AnyView(VehicleDetailView(viewModel: VehicleDetailViewModel(vehicleUrl: vehicle.url)))
         default:
             return AnyView(EmptyView())
         }
