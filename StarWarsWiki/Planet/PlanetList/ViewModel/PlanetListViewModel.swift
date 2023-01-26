@@ -16,20 +16,26 @@ class PlanetListViewModel: ObservableObject {
             return lhs.id == rhs.id
         }
         let id: String
-        let planetData: PlanetList
+        var planetData: PlanetList
     }
+    
+    // Save current API data page
+    var page : Int = 1
     
     // Loading state, errors and loaded data access
     @Published private(set) var state: LoadingStateHelper = .idle
-    @State var showErrorAlert = false
+    @Published var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", planetData: .init(count: 0, next: "", previous: "", results: []))
+    
+    @Published var searchText = ""
+    @Published var searchResults: [Planet] = []
     
     // Constructor
     init() {
     }
     
     // Load character data with loading states and error handling
-    func loadPlanetListData() {
+    func loadPlanetListData(for page: Int) {
         guard state != .loading else {
             return
         }
@@ -39,15 +45,36 @@ class PlanetListViewModel: ObservableObject {
         let planetNS: PlanetNS = .init()
         Task {
             do {
-                let planetData = try await planetNS.getPlanetListData(for: 1)
+                let planetData = try await planetNS.getPlanetListData(for: page)
                 DispatchQueue.main.async {
-                    self.loadedViewModel = .init(id: UUID().uuidString, planetData: planetData)
+                    // First data load
+                    if self.loadedViewModel.planetData.results.count == 0 {
+                        self.loadedViewModel = .init(id: UUID().uuidString, planetData: planetData)
+                    }
+                    // Adding more paginated data
+                    else {
+                        self.loadedViewModel.planetData.count += planetData.count
+                        self.loadedViewModel.planetData.next = planetData.next
+                        self.loadedViewModel.planetData.previous = planetData.previous
+                        self.loadedViewModel.planetData.results += planetData.results
+                    }
+                    self.searchResults = self.loadedViewModel.planetData.results
                     self.state = .success
                 }
             }
             catch {
                 self.showErrorAlert = true
                 self.state = .failed(ErrorHelper(message: error.localizedDescription))
+            }
+        }
+    }
+    
+    func loadMoreContent(currentIndex index: Int){
+        if searchText.isEmpty {
+            let thresholdIndex = self.loadedViewModel.planetData.results.index(self.loadedViewModel.planetData.results.endIndex, offsetBy: -1)
+            if thresholdIndex == index, loadedViewModel.planetData.next != nil {
+                page += 1
+                loadPlanetListData(for: page)
             }
         }
     }

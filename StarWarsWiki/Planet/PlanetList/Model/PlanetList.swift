@@ -8,8 +8,8 @@
 import Foundation
 
 struct PlanetList: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Planet]
+    var count: Int
+    var next: String?
+    var previous: String?
+    var results: [Planet]
 }
