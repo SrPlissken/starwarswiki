@@ -8,8 +8,8 @@
 import Foundation
 
 struct FilmList: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Film]
+    var count: Int
+    var next: String?
+    var previous: String?
+    var results: [Film]
 }

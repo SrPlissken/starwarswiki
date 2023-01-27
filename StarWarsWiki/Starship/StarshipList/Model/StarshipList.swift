@@ -8,8 +8,8 @@
 import Foundation
 
 struct StarshipList: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Starship]
+    var count: Int
+    var next: String?
+    var previous: String?
+    var results: [Starship]
 }

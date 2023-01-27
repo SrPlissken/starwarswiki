@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct StarshipListView: View {
-    @ObservedObject var viewModel: StarshipListViewModel = .init()
-    @State var searchText = ""
     
-    var searchResults: [Starship] {
-        viewModel.loadedViewModel.starshipData.results.filter { searchText.isEmpty || $0.name.lowercased().contains(searchText.lowercased()) }
-    }
+    @ObservedObject var viewModel: StarshipListViewModel = .init()
+    @State var position: Int = 0
     
     var body: some View {
         let state = viewModel.state
@@ -25,7 +22,9 @@ struct StarshipListView: View {
             // View state load
             switch state {
             case .idle:
-                Color.clear.onAppear(perform: viewModel.loadStarshipListData)
+                Color.clear.onAppear() {
+                    viewModel.loadStarshipListData(for: 1)
+                }
             case .loading:
                 VStack(spacing: 10) {
                     ProgressView()
@@ -33,20 +32,48 @@ struct StarshipListView: View {
                 }
             case .success:
                 VStack {
-                    if(searchResults.count > 0) {
-                        ScrollView {
-                            LazyVGrid(columns: [GridItem(), GridItem()]) {
-                                ForEach(searchResults, id: \.self) { item in
-                                    ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Starship", data: item), itemName: item.name, itemImage: "airplane.departure")
+                    if(viewModel.searchResults.count > 0) {
+                        ScrollViewReader { sv in
+                            ScrollView {
+                                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                                    ForEach(viewModel.searchResults.indices, id: \.self) { index in
+                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Starship", data: viewModel.searchResults[index]), itemName: viewModel.searchResults[index].name, itemImage: "airplane.departure")
+                                        // Checks if we need to update collection with new elements
+                                        .onAppear() {
+                                            viewModel.loadMoreContent(currentIndex: index)
+                                        }
+                                    }
+                                }
+                                .padding(30)
+                                // Calculate user position on scroll to recover it when collection changes
+                                .background(GeometryReader { proxy -> Color in
+                                    if viewModel.searchText.isEmpty {
+                                        let offset = -proxy.frame(in: .named("scroll")).origin.y
+                                        let itemHeight = proxy.size.height / CGFloat(self.viewModel.searchResults.count)
+                                        let currentIndex = Int((offset / itemHeight).rounded())
+                                        DispatchQueue.main.async {
+                                            self.position = currentIndex
+                                        }
+                                    }
+                                    return Color.clear
+                                })
+                            }
+                            .coordinateSpace(name: "scroll")
+                            // Look for changes in results collection and set previous saved position
+                            .onReceive(viewModel.$searchResults) { _ in
+                                if viewModel.searchText.isEmpty {
+                                    sv.scrollTo(self.position)
                                 }
                             }
-                            .padding(30)
                         }
                     }
                     else {
                         Text("No results for search")
                             .foregroundColor(.white)
                     }
+                }
+                .onChange(of: viewModel.searchText) { _ in
+                    viewModel.searchResults = viewModel.loadedViewModel.starshipData.results.filter { viewModel.searchText.isEmpty || $0.name.lowercased().contains(viewModel.searchText.lowercased()) }
                 }
             case .failed(let errorViewModel):
                 Color.clear.alert(isPresented: $viewModel.showErrorAlert) {
@@ -58,7 +85,7 @@ struct StarshipListView: View {
         .background(.black)
         .foregroundColor(.white)
         .preferredColorScheme(.dark)
-        .searchable(text: $searchText)    }
+        .searchable(text: $viewModel.searchText)    }
 }
 
 struct StarshipListView_Previews: PreviewProvider {
