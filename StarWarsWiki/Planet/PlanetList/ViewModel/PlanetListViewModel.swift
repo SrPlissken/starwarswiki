@@ -69,6 +69,7 @@ class PlanetListViewModel: ObservableObject {
         }
     }
     
+    // Add more content if needed
     func loadMoreContent(currentIndex index: Int){
         if searchText.isEmpty {
             let thresholdIndex = self.loadedViewModel.planetData.results.index(self.loadedViewModel.planetData.results.endIndex, offsetBy: -1)
