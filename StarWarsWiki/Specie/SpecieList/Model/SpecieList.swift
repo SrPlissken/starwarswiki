@@ -8,8 +8,8 @@
 import Foundation
 
 struct SpecieList: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Specie]
+    var count: Int
+    var next: String?
+    var previous: String?
+    var results: [Specie]
 }

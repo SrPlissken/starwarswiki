@@ -8,8 +8,8 @@
 import Foundation
 
 struct VehicleList: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Vehicle]
+    var count: Int
+    var next: String?
+    var previous: String?
+    var results: [Vehicle]
 }
