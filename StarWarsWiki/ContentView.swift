@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let categoryImages = ["person.2", "airplane.departure", "globe", "film.stack", "lizard", "airplane"]
-    let categoryTitle = ["Characters", "Starships", "Planets", "Films", "Species", "Vehicles"]
-    
+    @ObservedObject var viewModel: MainViewModel = .init()
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -31,11 +30,9 @@ struct ContentView: View {
                     
                     // Grid layout
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        ForEach(categoryImages, id: \.self) { item in
-                            let index = categoryImages.firstIndex(of: item) ?? 0
-                            CategoryButton(destination: RouterHelper.GetViewForSelection(index: index), categoryImage: categoryImages[index], categoryTitle: categoryTitle[index])
+                        ForEach(viewModel.categoryTitle.indices, id: \.self) { index in
+                            CategoryButton(destination: RouterHelper.GetViewForSelection(index: index), categoryUrl: viewModel.categoryUrls[index], categoryPlaceHolder: viewModel.categoryPlaceHolders[index], categoryTitle: viewModel.categoryTitle[index])
                         }
-                        
                     }
                     .padding(30)
                     
@@ -57,22 +54,31 @@ struct CategoryButton: View {
     
     // Image and title
     let destination: AnyView
-    let categoryImage: String
+    let categoryUrl: String
+    let categoryPlaceHolder: String
     let categoryTitle: String
     
     var body: some View {
         NavigationLink(destination: destination) {
             VStack(spacing: 15) {
-                Image(systemName: categoryImage)
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
+                AsyncImage(url: URL(string:categoryUrl)) { image in
+                    image.resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    Image(systemName: categoryPlaceHolder)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .offset(y: 4.0)
+                }
+                .offset(y: -4.0)
+                
                 Text(categoryTitle)
                     .font(.title2)
                     .fontWeight(.bold)
             }
-            .frame(maxWidth: .infinity, maxHeight: 130)
-            .padding(5)
+            .frame(maxWidth: .infinity)
+            .frame(height: 130)
             .foregroundColor(.orange)
             .background(Color.brown)
             .cornerRadius(20)

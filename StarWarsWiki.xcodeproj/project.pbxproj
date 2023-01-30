@@ -13,6 +13,8 @@
 		573F4AA12962FE70005CE558 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 573F4AA02962FE70005CE558 /* Preview Assets.xcassets */; };
 		573F4AAC2963A276005CE558 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAB2963A276005CE558 /* CharacterListView.swift */; };
 		573F4AAF296455C3005CE558 /* RouterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F4AAE296455C3005CE558 /* RouterHelper.swift */; };
+		57B70EF629859C25003F9C48 /* imageNS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B70EF529859C25003F9C48 /* imageNS.swift */; };
+		57B70EF829882433003F9C48 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B70EF729882433003F9C48 /* MainViewModel.swift */; };
 		57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864EF2965A6A60049484B /* CharacterDataSource.swift */; };
 		57F864F42965AAF80049484B /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F32965AAF70049484B /* Character.swift */; };
 		57F864F62965AB340049484B /* CharacterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F864F52965AB340049484B /* CharacterList.swift */; };
@@ -72,6 +74,8 @@
 		573F4AA02962FE70005CE558 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		573F4AAB2963A276005CE558 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		573F4AAE296455C3005CE558 /* RouterHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterHelper.swift; sourceTree = "<group>"; };
+		57B70EF529859C25003F9C48 /* imageNS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageNS.swift; sourceTree = "<group>"; };
+		57B70EF729882433003F9C48 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		57F864EF2965A6A60049484B /* CharacterDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDataSource.swift; sourceTree = "<group>"; };
 		57F864F32965AAF70049484B /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		57F864F52965AB340049484B /* CharacterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterList.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 		573F4A982962FE70005CE558 /* StarWarsWiki */ = {
 			isa = PBXGroup;
 			children = (
+				57B70EF429859C0D003F9C48 /* ImageDownloader */,
 				573F4AAD29645512005CE558 /* Helpers */,
 				57F8653E29708D2A0049484B /* Vehicle */,
 				57F865302970846E0049484B /* Starship */,
@@ -162,6 +167,7 @@
 				57F864F12965AAD70049484B /* Character */,
 				573F4A992962FE70005CE558 /* StarWarsWikiApp.swift */,
 				573F4A9B2962FE70005CE558 /* ContentView.swift */,
+				57B70EF729882433003F9C48 /* MainViewModel.swift */,
 				573F4A9D2962FE70005CE558 /* Assets.xcassets */,
 				573F4A9F2962FE70005CE558 /* Preview Content */,
 			);
@@ -218,6 +224,14 @@
 				57F864FD296849A20049484B /* LoadingStateHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		57B70EF429859C0D003F9C48 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				57B70EF529859C25003F9C48 /* imageNS.swift */,
+			);
+			path = ImageDownloader;
 			sourceTree = "<group>";
 		};
 		57F864EE2965A68A0049484B /* Data */ = {
@@ -788,6 +802,7 @@
 				57F86537297084F60049484B /* StartshipNS.swift in Sources */,
 				57F864F02965A6A60049484B /* CharacterDataSource.swift in Sources */,
 				57F864F62965AB340049484B /* CharacterList.swift in Sources */,
+				57B70EF829882433003F9C48 /* MainViewModel.swift in Sources */,
 				57F8654B297090190049484B /* VehicleNS.swift in Sources */,
 				57F864FC2968496C0049484B /* ErrorHelper.swift in Sources */,
 				57F8652D296F3CD20049484B /* Specie.swift in Sources */,
@@ -798,6 +813,7 @@
 				57F8651B296C89500049484B /* FilmList.swift in Sources */,
 				57F86589297EF89C0049484B /* VehicleDetailView.swift in Sources */,
 				57F86513296AE5870049484B /* PlanetList.swift in Sources */,
+				57B70EF629859C25003F9C48 /* imageNS.swift in Sources */,
 				57F86535297084DC0049484B /* StarshipDataSource.swift in Sources */,
 				57F86527296F3C270049484B /* SpecieDataSource.swift in Sources */,
 				57F8654F2975C2BA0049484B /* StarshipListViewModel.swift in Sources */,
