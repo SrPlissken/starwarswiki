@@ -16,7 +16,7 @@ class MainViewModel: ObservableObject {
     // Constructor
     init() {
         var categoryUrls: [String] = []
-        let imageNS: ImageNS = .init()
+        let imageNS: ImageDownloader = .init()
         for category in categoryTitle {
             categoryUrls.append(imageNS.getImageForSelectedCategory(for: category))
         }

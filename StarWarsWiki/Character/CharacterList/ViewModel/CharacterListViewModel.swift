@@ -78,5 +78,15 @@ class CharacterListViewModel: ObservableObject {
             }
         }
     }
+    
+    // Load images for item list
+    func loadImageForSelectedItem(for index: Int) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        let selectedItem = searchResults[index]
+        if let imageID = selectedItem.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Characters", itemID: imageID)
+        }
+        return ""
+    }
 }
 

@@ -37,7 +37,7 @@ struct PlanetListView: View {
                             ScrollView {
                                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                                     ForEach(viewModel.searchResults.indices, id: \.self) { index in
-                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Planet", data: viewModel.searchResults[index]), itemName: viewModel.searchResults[index].name, itemImage: "globe")
+                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Planet", data: viewModel.searchResults[index]), itemUrl: "", itemName: viewModel.searchResults[index].name, itemImage: "globe")
                                             // Checks if we need to update collection with new elements
                                             .onAppear() {
                                                 viewModel.loadMoreContent(currentIndex: index)

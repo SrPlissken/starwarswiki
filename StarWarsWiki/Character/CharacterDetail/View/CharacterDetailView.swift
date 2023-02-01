@@ -131,7 +131,7 @@ struct DetailNavigableCategoryItems: View {
                 
                 HStack(spacing: 20) {
                     ForEach(itemNames, id: \.self) { itemName in
-                        ClickableItem(destination: AnyView(EmptyView()), itemName: itemName, itemImage: categoryImages[0])
+                        ClickableItem(destination: AnyView(EmptyView()), itemUrl: "", itemName: itemName, itemImage: categoryImages[0])
                             .frame(width: 200)
                     }
                 }

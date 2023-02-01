@@ -37,7 +37,7 @@ struct SpecieListView: View {
                             ScrollView {
                                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                                     ForEach(viewModel.searchResults.indices, id: \.self) { index in
-                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Specie", data: viewModel.searchResults[index]), itemName: viewModel.searchResults[index].name, itemImage: "lizard")
+                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Specie", data: viewModel.searchResults[index]), itemUrl: "", itemName: viewModel.searchResults[index].name, itemImage: "lizard")
                                         // Checks if we need to update collection with new elements
                                         .onAppear() {
                                             viewModel.loadMoreContent(currentIndex: index)

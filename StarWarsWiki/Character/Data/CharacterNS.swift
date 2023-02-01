@@ -22,7 +22,7 @@ class CharacterNS: CharacterDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(CharacterList.self, from: data) {
-                characterList = response
+                characterList = addImagesID(characterList: response)
             }
         }
         catch {
@@ -49,5 +49,19 @@ class CharacterNS: CharacterDataSource {
             print(error.localizedDescription)
         }
         return characterData
+    }
+    
+    // Add itemId for images
+    func addImagesID(characterList: CharacterList) -> CharacterList {
+        var mutableCharacterList = characterList
+        for index in mutableCharacterList.results.indices {
+            var itemID = mutableCharacterList.results[index].url
+            if itemID.hasSuffix("/") {
+                itemID.removeLast()
+            }
+            itemID = itemID.components(separatedBy: "/").last!
+            mutableCharacterList.results[index].imageID = itemID
+        }
+        return mutableCharacterList
     }
 }

@@ -37,7 +37,7 @@ struct FilmListView: View {
                             ScrollView {
                                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                                     ForEach(viewModel.searchResults.indices, id: \.self) { index in
-                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Film", data: viewModel.searchResults[index]), itemName: viewModel.searchResults[index].title, itemImage: "film.stack")
+                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Film", data: viewModel.searchResults[index]), itemUrl: "", itemName: viewModel.searchResults[index].title, itemImage: "film.stack")
                                         // Checks if we need to update collection with new elements
                                         .onAppear() {
                                             viewModel.loadMoreContent(currentIndex: index)
@@ -91,5 +91,48 @@ struct FilmListView: View {
 struct FilmListView_Previews: PreviewProvider {
     static var previews: some View {
         FilmListView()
+    }
+}
+
+struct ClickableItem: View {
+    
+    let destination: AnyView
+    let itemUrl: String
+    let itemName: String
+    let itemImage: String
+    @State private var newURL: String?
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            VStack(spacing: 15) {
+                AsyncImage(url: URL(string: newURL ?? "")) { image in
+                    image.resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    Image(systemName: itemImage)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .offset(y: 4.0)
+                }
+                // Avoid possible xcode bug
+                .onAppear() {
+                    if newURL == nil {
+                        DispatchQueue.main.async {
+                            newURL = itemUrl
+                        }
+                    }
+                }
+                .offset(y: -4.0)
+                Text(itemName)
+                    .font(.title2)
+                    .fontWeight(.bold)
+            }
+            .frame(maxWidth: .infinity, maxHeight: 130)
+            .padding(5)
+            .foregroundColor(.orange)
+            .background(Color.brown)
+            .cornerRadius(20)
+        }
     }
 }
