@@ -100,7 +100,7 @@ struct ClickableCharacterItem: View {
     let itemUrl: String
     let itemName: String
     let itemImage: String
-    @State private var newURL: String?
+    @State var newURL: String?
     
     var body: some View {
         NavigationLink(destination: destination) {
@@ -116,11 +116,17 @@ struct ClickableCharacterItem: View {
                         .padding()
                         .offset(y: 4.0)
                 }
+                // Perform image changes while searching
+                .onChange(of: itemUrl, perform: { newValue in
+                    DispatchQueue.main.async {
+                        self.newURL = newValue
+                    }
+                })
                 // Avoid possible xcode bug
                 .onAppear() {
                     if newURL == nil {
                         DispatchQueue.main.async {
-                            newURL = itemUrl
+                            self.newURL = itemUrl
                         }
                     }
                 }
