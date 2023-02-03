@@ -22,7 +22,7 @@ class StarshipNS: StarshipDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(StarshipList.self, from: data) {
-                starshipList = response
+                starshipList = addImagesID(starshipList: response)
             }
         }
         catch {
@@ -49,5 +49,19 @@ class StarshipNS: StarshipDataSource {
             print(error.localizedDescription)
         }
         return starshipData
+    }
+    
+    // Add itemId for images
+    func addImagesID(starshipList: StarshipList) -> StarshipList {
+        var mutableStarshipList = starshipList
+        for index in mutableStarshipList.results.indices {
+            var itemID = mutableStarshipList.results[index].url
+            if itemID.hasSuffix("/") {
+                itemID.removeLast()
+            }
+            itemID = itemID.components(separatedBy: "/").last!
+            mutableStarshipList.results[index].imageID = itemID
+        }
+        return mutableStarshipList
     }
 }

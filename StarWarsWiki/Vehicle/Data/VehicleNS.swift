@@ -22,7 +22,7 @@ class VehicleNS: VehicleDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(VehicleList.self, from: data) {
-                vehicleList = response
+                vehicleList = addImagesID(vehicleList: response)
             }
         }
         catch {
@@ -49,5 +49,19 @@ class VehicleNS: VehicleDataSource {
             print(error.localizedDescription)
         }
         return vehicleData
+    }
+    
+    // Add itemId for images
+    func addImagesID(vehicleList: VehicleList) -> VehicleList {
+        var mutableVehicleList = vehicleList
+        for index in mutableVehicleList.results.indices {
+            var itemID = mutableVehicleList.results[index].url
+            if itemID.hasSuffix("/") {
+                itemID.removeLast()
+            }
+            itemID = itemID.components(separatedBy: "/").last!
+            mutableVehicleList.results[index].imageID = itemID
+        }
+        return mutableVehicleList
     }
 }

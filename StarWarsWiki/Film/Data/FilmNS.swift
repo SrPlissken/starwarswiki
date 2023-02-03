@@ -23,7 +23,7 @@ class FilmNS: FilmDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(FilmList.self, from: data) {
-                filmList = response
+                filmList = addImagesID(filmList: response)
             }
         }
         catch {
@@ -50,5 +50,19 @@ class FilmNS: FilmDataSource {
             print(error.localizedDescription)
         }
         return filmData
+    }
+    
+    // Add itemId for images
+    func addImagesID(filmList: FilmList) -> FilmList {
+        var mutableFilmList = filmList
+        for index in mutableFilmList.results.indices {
+            var itemID = mutableFilmList.results[index].url
+            if itemID.hasSuffix("/") {
+                itemID.removeLast()
+            }
+            itemID = itemID.components(separatedBy: "/").last!
+            mutableFilmList.results[index].imageID = itemID
+        }
+        return mutableFilmList
     }
 }

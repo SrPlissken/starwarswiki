@@ -23,6 +23,8 @@ struct Specie: Codable, Hashable {
     var created: String
     var edited: String
     var url: String
+    
+    var imageID: String?
 }
 
 extension Specie {

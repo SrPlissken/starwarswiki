@@ -36,7 +36,7 @@ struct VehicleListView: View {
                             ScrollView {
                                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                                     ForEach(viewModel.searchResults.indices, id: \.self) { index in
-                                        ClickableItem(destination: RouterHelper.GetViewForDetailSection(category: "Vehicle", data: viewModel.searchResults[index]), itemUrl: "", itemName: viewModel.searchResults[index].name, itemImage: "airplane")
+                                        ClickableVehicleItem(destination: RouterHelper.GetViewForDetailSection(category: "Vehicle", data: viewModel.searchResults[index]), itemUrl: viewModel.loadImageForSelectedItem(for: index), itemName: viewModel.searchResults[index].name, itemImage: "airplane")
                                         // Checks if we need to update collection with new elements
                                         .onAppear() {
                                             viewModel.loadMoreContent(currentIndex: index)
@@ -88,5 +88,59 @@ struct VehicleListView: View {
 struct VehicleListView_Previews: PreviewProvider {
     static var previews: some View {
         VehicleListView()
+    }
+}
+
+struct ClickableVehicleItem: View {
+    
+    let destination: AnyView
+    let itemUrl: String
+    let itemName: String
+    let itemImage: String
+    @State var newURL: String?
+    
+    var body: some View {
+        NavigationLink(destination: destination) {
+            VStack(spacing: 15) {
+                AsyncImage(url: URL(string: newURL ?? "")) { image in
+                    image
+                        .resizable()
+                        .padding([.leading, .trailing], -5)
+                } placeholder: {
+                    Image(systemName: itemImage)
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .offset(y: 4.0)
+                }
+                // Perform image changes while searching
+                .onChange(of: itemUrl, perform: { newValue in
+                    DispatchQueue.main.async {
+                        self.newURL = newValue
+                    }
+                })
+                // Avoid possible xcode bug
+                .onAppear() {
+                    if newURL == nil {
+                        DispatchQueue.main.async {
+                            self.newURL = itemUrl
+                        }
+                    }
+                }
+                .offset(y: -5.0)
+                Text(itemName)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .minimumScaleFactor(0.5)
+                    .scaledToFit()
+                    .padding(4)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 180)
+            .padding(5)
+            .foregroundColor(.orange)
+            .background(Color.brown)
+            .cornerRadius(20)
+        }
     }
 }

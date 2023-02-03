@@ -22,7 +22,7 @@ class SpecieNS: SpecieDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(SpecieList.self, from: data) {
-                specieList = response
+                specieList = addImagesID(specieList: response)
             }
         }
         catch {
@@ -49,5 +49,19 @@ class SpecieNS: SpecieDataSource {
             print(error.localizedDescription)
         }
         return specieData
+    }
+    
+    // Add itemId for images
+    func addImagesID(specieList: SpecieList) -> SpecieList {
+        var mutableSpecieList = specieList
+        for index in mutableSpecieList.results.indices {
+            var itemID = mutableSpecieList.results[index].url
+            if itemID.hasSuffix("/") {
+                itemID.removeLast()
+            }
+            itemID = itemID.components(separatedBy: "/").last!
+            mutableSpecieList.results[index].imageID = itemID
+        }
+        return mutableSpecieList
     }
 }
