@@ -116,6 +116,7 @@ struct ClickableCharacterItem: View {
                         .padding()
                         .offset(y: 4.0)
                 }
+                .frame(height: 220)
                 // Perform image changes while searching
                 .onChange(of: itemUrl, perform: { newValue in
                     DispatchQueue.main.async {
@@ -135,11 +136,10 @@ struct ClickableCharacterItem: View {
                     .font(.title2)
                     .fontWeight(.bold)
                     .minimumScaleFactor(0.5)
-                    .scaledToFit()
-                    .padding(4)
+                    .frame(height: 25)
+                    .offset(y: -5.0)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 250)
             .padding(5)
             .foregroundColor(.orange)
             .background(Color.brown)
