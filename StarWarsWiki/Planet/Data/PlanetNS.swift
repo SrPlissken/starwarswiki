@@ -42,7 +42,7 @@ class PlanetNS: PlanetDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(Planet.self, from: data) {
-                planetData = response
+                planetData = addProfileImageID(planet: response)
             }
         }
         catch {
@@ -63,5 +63,17 @@ class PlanetNS: PlanetDataSource {
             mutablePlanetList.results[index].imageID = itemID
         }
         return mutablePlanetList
+    }
+    
+    // Add itemID for item data
+    func addProfileImageID(planet: Planet) -> Planet {
+        var mutablePlanetData = planet
+        var itemID = mutablePlanetData.url
+        if itemID.hasSuffix("/") {
+            itemID.removeLast()
+        }
+        itemID = itemID.components(separatedBy: "/").last!
+        mutablePlanetData.imageID = itemID
+        return mutablePlanetData
     }
 }

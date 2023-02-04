@@ -42,7 +42,7 @@ class CharacterNS: CharacterDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(Character.self, from: data) {
-                characterData = response
+                characterData = addProfileImageID(character: response)
             }
         }
         catch {
@@ -63,5 +63,17 @@ class CharacterNS: CharacterDataSource {
             mutableCharacterList.results[index].imageID = itemID
         }
         return mutableCharacterList
+    }
+    
+    // Add itemID for item data
+    func addProfileImageID(character: Character) -> Character {
+        var mutableCharacterData = character
+        var itemID = mutableCharacterData.url
+        if itemID.hasSuffix("/") {
+            itemID.removeLast()
+        }
+        itemID = itemID.components(separatedBy: "/").last!
+        mutableCharacterData.imageID = itemID
+        return mutableCharacterData
     }
 }

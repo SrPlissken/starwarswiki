@@ -30,6 +30,7 @@ class CharacterDetailViewModel: ObservableObject {
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", characterData: Character.EmptyObject, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [], vehicleList: [])
+    @Published var imageURL: String = ""
     
     init(characterUrl: String) {
         self.characterUrl = characterUrl
@@ -48,6 +49,7 @@ class CharacterDetailViewModel: ObservableObject {
                 let characterData = try await characterNS.getCharacterData(for: characterUrl)
                 DispatchQueue.main.async {
                     self.loadedViewModel = .init(id: UUID().uuidString, characterData: characterData, homeWorld: Planet.EmptyObject, filmList: [], specieList: [], starshipList: [], vehicleList: [])
+                    self.imageURL = self.loadProfileImage(itemData: characterData)
                     self.loadPlanets(homeworld: characterData.homeworld)
                     if characterData.films.count > 0 {
                         self.loadFilms(filmList: characterData.films)
@@ -166,5 +168,14 @@ class CharacterDetailViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // Load profile imagen
+    func loadProfileImage(itemData: Character) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        if let imageID = itemData.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Characters", itemID: imageID)
+        }
+        return ""
     }
 }

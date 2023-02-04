@@ -42,7 +42,7 @@ class VehicleNS: VehicleDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(Vehicle.self, from: data) {
-                vehicleData = response
+                vehicleData = addProfileImageID(vehicle: response)
             }
         }
         catch {
@@ -63,5 +63,17 @@ class VehicleNS: VehicleDataSource {
             mutableVehicleList.results[index].imageID = itemID
         }
         return mutableVehicleList
+    }
+    
+    // Add itemID for item data
+    func addProfileImageID(vehicle: Vehicle) -> Vehicle {
+        var mutableVehicleData = vehicle
+        var itemID = mutableVehicleData.url
+        if itemID.hasSuffix("/") {
+            itemID.removeLast()
+        }
+        itemID = itemID.components(separatedBy: "/").last!
+        mutableVehicleData.imageID = itemID
+        return mutableVehicleData
     }
 }

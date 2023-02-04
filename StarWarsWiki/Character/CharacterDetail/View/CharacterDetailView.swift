@@ -19,7 +19,9 @@ struct CharacterDetailView: View {
             
             switch state {
             case .idle:
-                Color.clear.onAppear(perform: viewModel.loadProfileData)
+                Color.clear.onAppear() {
+                    viewModel.loadProfileData()
+                }
             case .loading:
                 VStack(spacing: 10) {
                     ProgressView()
@@ -28,12 +30,19 @@ struct CharacterDetailView: View {
             case .success:
                 ScrollView {
                     VStack(spacing: 10) {
-                        // Character image
-                        Image(systemName: "person.2")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .padding()
+                        AsyncImage(url: URL(string: viewModel.imageURL )) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 250)
+                        } placeholder: {
+                            Image(systemName: "person.2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150)
+                                .padding()
+                        }
+                        .cornerRadius(2)
                         
                         // Character name
                         Text(viewModel.loadedViewModel.characterData.name)

@@ -42,7 +42,7 @@ class StarshipNS: StarshipDataSource {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             if let response = try? JSONDecoder().decode(Starship.self, from: data) {
-                starshipData = response
+                starshipData = addProfileImageID(starship: response)
             }
         }
         catch {
@@ -63,5 +63,17 @@ class StarshipNS: StarshipDataSource {
             mutableStarshipList.results[index].imageID = itemID
         }
         return mutableStarshipList
+    }
+    
+    // Add itemID for item data
+    func addProfileImageID(starship: Starship) -> Starship {
+        var mutableStarshipData = starship
+        var itemID = mutableStarshipData.url
+        if itemID.hasSuffix("/") {
+            itemID.removeLast()
+        }
+        itemID = itemID.components(separatedBy: "/").last!
+        mutableStarshipData.imageID = itemID
+        return mutableStarshipData
     }
 }
