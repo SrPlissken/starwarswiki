@@ -27,6 +27,7 @@ class PlanetDetailViewModel: ObservableObject {
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", planetData: Planet.EmptyObject, residentList: [], filmList: [])
+    @Published var imageURL: String = ""
     
     init(planetUrl: String) {
         self.planetUrl = planetUrl
@@ -45,6 +46,7 @@ class PlanetDetailViewModel: ObservableObject {
                 let planetData = try await planetNS.getPlanetData(for: planetUrl)
                 DispatchQueue.main.async {
                     self.loadedViewModel = .init(id: UUID().uuidString, planetData: planetData, residentList: [], filmList: [])
+                    self.imageURL = self.loadPlanetImage(itemData: planetData)
                     if planetData.residents.count > 0 {
                         self.loadResidents(residentList: planetData.residents)
                     }
@@ -99,5 +101,32 @@ class PlanetDetailViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // Load planet image
+    func loadPlanetImage(itemData: Planet) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        if let imageID = itemData.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Planets", itemID: imageID)
+        }
+        return ""
+    }
+    
+    // Load images for selected category and item
+    func loadImageForSelectedItem(for index: Int, category: String) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        var imageID = ""
+        switch category {
+        case "Characters":
+            let selectedItem = loadedViewModel.residentList[index]
+            imageID = selectedItem.imageID ?? ""
+            break
+        case "Films":
+            let selectedItem = loadedViewModel.filmList[index]
+            imageID = selectedItem.imageID ?? ""
+        default:
+            break
+        }
+        return imgDownloader.getImageForCategoryList(for: category, itemID: imageID)
     }
 }

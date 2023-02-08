@@ -30,6 +30,7 @@ class FilmDetailViewModel: ObservableObject {
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", filmData: Film.EmptyObject, characterList: [], planetList: [], starshipList: [], vehicleList: [], specieList: [])
+    @Published var imageURL: String = ""
     
     init(filmUrl: String) {
         self.filmUrl = filmUrl
@@ -48,6 +49,7 @@ class FilmDetailViewModel: ObservableObject {
                 let filmData = try await filmNS.getFilmData(for: filmUrl)
                 DispatchQueue.main.async {
                     self.loadedViewModel = .init(id: UUID().uuidString, filmData: filmData, characterList: [], planetList: [], starshipList: [], vehicleList: [], specieList: [])
+                    self.imageURL = self.loadFilmImage(itemData: filmData)
                     if filmData.characters.count > 0 {
                         self.loadCharacters(characterList: filmData.characters)
                     }
@@ -171,5 +173,41 @@ class FilmDetailViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // Load film image
+    func loadFilmImage(itemData: Film) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        if let imageID = itemData.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Films", itemID: imageID)
+        }
+        return ""
+    }
+    
+    // Load images for selected category and item
+    func loadImageForSelectedItem(for index: Int, category: String) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        var imageID = ""
+        switch category {
+        case "Characters":
+            let selectedItem = loadedViewModel.characterList[index]
+            imageID = selectedItem.imageID ?? ""
+            break
+        case "Planets":
+            let selectedItem = loadedViewModel.planetList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Species":
+            let selectedItem = loadedViewModel.specieList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Straships":
+            let selectedItem = loadedViewModel.starshipList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Vehicles":
+            let selectedItem = loadedViewModel.vehicleList[index]
+            imageID = selectedItem.imageID ?? ""
+        default:
+            break
+        }
+        return imgDownloader.getImageForCategoryList(for: category, itemID: imageID)
     }
 }

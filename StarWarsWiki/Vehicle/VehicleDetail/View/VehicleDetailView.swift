@@ -27,19 +27,27 @@ struct VehicleDetailView: View {
             case .success:
                 ScrollView {
                     VStack(spacing: 10) {
-                        // Film image
-                        Image(systemName: "airplane")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .padding()
+                        // Vehicle image
+                        AsyncImage(url: URL(string: viewModel.imageURL )) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 250)
+                        } placeholder: {
+                            Image(systemName: "airplane")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150)
+                                .padding()
+                        }
+                        .cornerRadius(2)
                         
-                        // Film name
+                        // Vehicle name
                         Text(viewModel.loadedViewModel.vehicleData.name)
                             .font(.title)
                             .padding(.bottom, 30)
                         
-                        // Character data
+                        // Vehicle data
                         VStack {
                             VehicleProperty(propertyName: "Manufacturer", propertyValue: viewModel.loadedViewModel.vehicleData.manufacturer)
                             VehicleProperty(propertyName: "Cost In Credits", propertyValue: viewModel.loadedViewModel.vehicleData.cost_in_credits)
@@ -57,10 +65,10 @@ struct VehicleDetailView: View {
                         // Other character data
                         VStack(spacing: 40) {
                             if(viewModel.loadedViewModel.characterList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Pilots", itemNames: viewModel.loadedViewModel.characterList.map{ $0.name })
+                                DetailNavigableCategoryItemsV(categoryName: "Characters", categoryType: "Characters", itemNames: viewModel.loadedViewModel.characterList.map{ $0.name }, itemIDCollection: viewModel.loadedViewModel.characterList.map{ $0.imageID ?? "" }, viewModel: viewModel )
                             }
                             if(viewModel.loadedViewModel.filmList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title })
+                                DetailNavigableCategoryItemsV(categoryName: "Films", categoryType: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title }, itemIDCollection: viewModel.loadedViewModel.filmList.map{ $0.imageID ?? "" }, viewModel: viewModel )
                             }
                         }
                     }
@@ -104,6 +112,45 @@ struct VehicleProperty: View {
             }
             Rectangle()
                 .frame(height: 1)
+        }
+    }
+}
+
+// View with category accesible items
+struct DetailNavigableCategoryItemsV: View {
+    
+    let categoryName: String
+    let categoryType: String
+    let itemNames: [String]
+    let itemIDCollection: [String]
+    let viewModel: VehicleDetailViewModel
+    let categoryImages = ["person.2", "airplane.departure", "globe", "film.stack", "lizard", "airplane"]
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text(categoryName)
+                    .font(.title)
+                Spacer()
+            }
+            ScrollView(.horizontal) {
+                
+                HStack(spacing: 20) {
+                    ForEach(itemNames.indices, id: \.self) { index in
+                        switch categoryType {
+                        case "Characters":
+                            ClickableCharacterItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[0])
+                                .frame(width: 160)
+                        case "Films":
+                            ClickableFilmItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[3])
+                                .frame(width: 180)
+                        default:
+                            ClickableItem(destination: AnyView(EmptyView()), itemUrl: "", itemName: itemNames[index], itemImage: categoryImages[2])
+                                .frame(width: 200)
+                        }
+                    }
+                }
+            }
         }
     }
 }

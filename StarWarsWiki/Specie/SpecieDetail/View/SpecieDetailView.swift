@@ -27,19 +27,27 @@ struct SpecieDetailView: View {
             case .success:
                 ScrollView {
                     VStack(spacing: 10) {
-                        // Film image
-                        Image(systemName: "lizard")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .padding()
+                        // Specie image
+                        AsyncImage(url: URL(string: viewModel.imageURL )) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 250)
+                        } placeholder: {
+                            Image(systemName: "lizzard")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150)
+                                .padding()
+                        }
+                        .cornerRadius(2)
                         
-                        // Film name
+                        // Specie name
                         Text(viewModel.loadedViewModel.specieData.name)
                             .font(.title)
                             .padding(.bottom, 30)
                         
-                        // Character data
+                        // Specie data
                         VStack {
                             SpecieProperty(propertyName: "Classification", propertyValue: viewModel.loadedViewModel.specieData.classification)
                             SpecieProperty(propertyName: "Designation", propertyValue: viewModel.loadedViewModel.specieData.designation)
@@ -56,10 +64,10 @@ struct SpecieDetailView: View {
                         // Other character data
                         VStack(spacing: 40) {
                             if(viewModel.loadedViewModel.characterList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Characters", itemNames: viewModel.loadedViewModel.characterList.map{ $0.name })
+                                DetailNavigableCategoryItemsS(categoryName: "Characters", categoryType: "Characters", itemNames: viewModel.loadedViewModel.characterList.map{ $0.name }, itemIDCollection: viewModel.loadedViewModel.characterList.map{ $0.imageID ?? "" }, viewModel: viewModel )
                             }
                             if(viewModel.loadedViewModel.filmList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title })
+                                DetailNavigableCategoryItemsS(categoryName: "Films", categoryType: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title }, itemIDCollection: viewModel.loadedViewModel.filmList.map{ $0.imageID ?? "" }, viewModel: viewModel )
                             }
                         }
                     }
@@ -103,6 +111,46 @@ struct SpecieProperty: View {
             }
             Rectangle()
                 .frame(height: 1)
+        }
+    }
+}
+
+// View with category accesible items
+struct DetailNavigableCategoryItemsS: View {
+    
+    let categoryName: String
+    let categoryType: String
+    let itemNames: [String]
+    let itemIDCollection: [String]
+    let viewModel: SpecieDetailViewModel
+    let categoryImages = ["person.2", "airplane.departure", "globe", "film.stack", "lizard", "airplane"]
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text(categoryName)
+                    .font(.title)
+                Spacer()
+            }
+            ScrollView(.horizontal) {
+                
+                HStack(spacing: 20) {
+                    ForEach(itemNames.indices, id: \.self) { index in
+                        switch categoryType {
+                        case "Characters":
+                            ClickableSpecieItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[0])
+                                .frame(width: 160)
+                        case "Films":
+                            ClickableFilmItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[3])
+                                .frame(width: 180)
+                            
+                        default:
+                            ClickableItem(destination: AnyView(EmptyView()), itemUrl: "", itemName: itemNames[index], itemImage: categoryImages[2])
+                                .frame(width: 200)
+                        }
+                    }
+                }
+            }
         }
     }
 }

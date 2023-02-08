@@ -27,12 +27,20 @@ struct PlanetDetailView: View {
             case .success:
                 ScrollView {
                     VStack(spacing: 10) {
-                        // Character image
-                        Image(systemName: "person.2")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .padding()
+                        // Planet image
+                        AsyncImage(url: URL(string: viewModel.imageURL )) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 250)
+                        } placeholder: {
+                            Image(systemName: "globe")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150, height: 150)
+                                .padding()
+                        }
+                        .cornerRadius(2)
                         
                         // Character name
                         Text(viewModel.loadedViewModel.planetData.name)
@@ -56,10 +64,10 @@ struct PlanetDetailView: View {
                         // Other character data
                         VStack(spacing: 40) {
                             if(viewModel.loadedViewModel.residentList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Resident", itemNames: viewModel.loadedViewModel.residentList.map{ $0.name })
+                                DetailNavigableCategoryItemsP(categoryName: "Residents", categoryType: "Characters", itemNames: viewModel.loadedViewModel.residentList.map{ $0.name }, itemIDCollection: viewModel.loadedViewModel.residentList.map{ $0.imageID ?? "" }, viewModel: viewModel)
                             }
                             if(viewModel.loadedViewModel.filmList.count > 0) {
-                                DetailNavigableCategoryItems(categoryName: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title })
+                                DetailNavigableCategoryItemsP(categoryName: "Films", categoryType: "Films", itemNames: viewModel.loadedViewModel.filmList.map{ $0.title }, itemIDCollection: viewModel.loadedViewModel.filmList.map{ $0.imageID ?? "" }, viewModel: viewModel)
                             }
                         }
                     }
@@ -102,6 +110,45 @@ struct PlanetProperty: View {
             }
             Rectangle()
                 .frame(height: 1)
+        }
+    }
+}
+
+// View with category accesible items
+struct DetailNavigableCategoryItemsP: View {
+    
+    let categoryName: String
+    let categoryType: String
+    let itemNames: [String]
+    let itemIDCollection: [String]
+    let viewModel: PlanetDetailViewModel
+    let categoryImages = ["person.2", "airplane.departure", "globe", "film.stack", "lizard", "airplane"]
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text(categoryName)
+                    .font(.title)
+                Spacer()
+            }
+            ScrollView(.horizontal) {
+                
+                HStack(spacing: 20) {
+                    ForEach(itemNames.indices, id: \.self) { index in
+                        switch categoryType {
+                        case "Characters":
+                            ClickableCharacterItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[0])
+                                .frame(width: 160)
+                        case "Films":
+                            ClickableFilmItem(destination: AnyView(EmptyView()), itemUrl: viewModel.loadImageForSelectedItem(for: index, category: categoryType), itemName: itemNames[index], itemImage: categoryImages[3])
+                                .frame(width: 180)
+                        default:
+                            ClickableItem(destination: AnyView(EmptyView()), itemUrl: "", itemName: itemNames[index], itemImage: categoryImages[2])
+                                .frame(width: 200)
+                        }
+                    }
+                }
+            }
         }
     }
 }

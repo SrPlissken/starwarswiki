@@ -27,6 +27,7 @@ class VehicleDetailViewModel: ObservableObject {
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", vehicleData: Vehicle.EmptyObject, characterList: [], filmList: [])
+    @Published var imageURL: String = ""
     
     init(vehicleUrl: String) {
         self.vehicleUrl = vehicleUrl
@@ -45,6 +46,7 @@ class VehicleDetailViewModel: ObservableObject {
                 let vehicleData = try await vehicleNS.getVehicleData(for: vehicleUrl)
                 DispatchQueue.main.async {
                     self.loadedViewModel = .init(id: UUID().uuidString, vehicleData: vehicleData, characterList: [], filmList: [])
+                    self.imageURL = self.loadVehicleImage(itemData: vehicleData)
                     if vehicleData.pilots.count > 0 {
                         self.loadCharacters(characterList: vehicleData.pilots)
                     }
@@ -99,5 +101,32 @@ class VehicleDetailViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // Load vehicle image
+    func loadVehicleImage(itemData: Vehicle) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        if let imageID = itemData.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Vehicles", itemID: imageID)
+        }
+        return ""
+    }
+    
+    // Load images for selected category and item
+    func loadImageForSelectedItem(for index: Int, category: String) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        var imageID = ""
+        switch category {
+        case "Characters":
+            let selectedItem = loadedViewModel.characterList[index]
+            imageID = selectedItem.imageID ?? ""
+            break
+        case "Films":
+            let selectedItem = loadedViewModel.filmList[index]
+            imageID = selectedItem.imageID ?? ""
+        default:
+            break
+        }
+        return imgDownloader.getImageForCategoryList(for: category, itemID: imageID)
     }
 }

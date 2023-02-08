@@ -170,12 +170,40 @@ class CharacterDetailViewModel: ObservableObject {
         }
     }
     
-    // Load profile imagen
+    // Load profile image
     func loadProfileImage(itemData: Character) -> String{
         let imgDownloader: ImageDownloader = .init()
         if let imageID = itemData.imageID {
             return imgDownloader.getImageForCategoryList(for: "Characters", itemID: imageID)
         }
         return ""
+    }
+    
+    // Load images for selected category and item
+    func loadImageForSelectedItem(for index: Int, category: String) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        var imageID = ""
+        switch category {
+        case "Planets":
+            let selectedItem = loadedViewModel.homeWorld
+            imageID = selectedItem.imageID ?? ""
+            break
+        case "Films":
+            let selectedItem = loadedViewModel.filmList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Species":
+            let selectedItem = loadedViewModel.specieList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Starships":
+            let selectedItem = loadedViewModel.starshipList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Vehicles":
+            let selectedItem = loadedViewModel.vehicleList[index]
+            imageID = selectedItem.imageID ?? ""
+        default:
+            break
+        }
+        
+        return imgDownloader.getImageForCategoryList(for: category, itemID: imageID)
     }
 }

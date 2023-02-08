@@ -27,6 +27,7 @@ class SpecieDetailViewModel: ObservableObject {
     @Published private(set) var state: LoadingStateHelper = .idle
     @State var showErrorAlert = false
     @Published var loadedViewModel: LoadedViewModel = .init(id: "", specieData: Specie.EmptyObject, characterList: [], filmList: [])
+    @Published var imageURL: String = ""
     
     init(specieUrl: String) {
         self.specieUrl = specieUrl
@@ -45,6 +46,7 @@ class SpecieDetailViewModel: ObservableObject {
                 let specieData = try await specieNS.getSpecieData(for: specieUrl)
                 DispatchQueue.main.async {
                     self.loadedViewModel = .init(id: UUID().uuidString, specieData: specieData, characterList: [], filmList: [])
+                    self.imageURL = self.loadSpecieImage(itemData: specieData)
                     if specieData.people.count > 0 {
                         self.loadCharacters(characterList: specieData.people)
                     }
@@ -99,5 +101,31 @@ class SpecieDetailViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    // Load specie image
+    func loadSpecieImage(itemData: Specie) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        if let imageID = itemData.imageID {
+            return imgDownloader.getImageForCategoryList(for: "Species", itemID: imageID)
+        }
+        return ""
+    }
+    
+    // Load images for selected category and item
+    func loadImageForSelectedItem(for index: Int, category: String) -> String{
+        let imgDownloader: ImageDownloader = .init()
+        var imageID = ""
+        switch category {
+        case "Films":
+            let selectedItem = loadedViewModel.filmList[index]
+            imageID = selectedItem.imageID ?? ""
+        case "Characters":
+            let selectedItem = loadedViewModel.characterList[index]
+            imageID = selectedItem.imageID ?? ""
+        default:
+            break
+        }
+        return imgDownloader.getImageForCategoryList(for: category, itemID: imageID)
     }
 }
